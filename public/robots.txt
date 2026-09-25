@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://bhartiyanikoohomes8.com
+
+# Sitemaps
+Sitemap: https://bhartiyanikoohomes8.com/sitemap.xml
