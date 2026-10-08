@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo } from "react";
 
 function SliderField({ label, min, max, step, value, onChange, pillLabel, rightLabel }) {
   const pct = (value - min) / (max - min);
@@ -9,7 +9,7 @@ function SliderField({ label, min, max, step, value, onChange, pillLabel, rightL
   return (
     <div className="mb-6">
       <div className="flex justify-between items-baseline mb-1.5">
-        <p className="text-[11px] uppercase tracking-widest text-gray-400">{label}</p>
+        <p className="text-[11px] uppercase tracking-widest text-gray-500">{label}</p>
         <div className="flex items-baseline gap-2">
           {rightLabel}
         </div>
@@ -21,9 +21,10 @@ function SliderField({ label, min, max, step, value, onChange, pillLabel, rightL
           className="absolute top-1/2 left-0 h-[2px] bg-gray-900 -translate-y-1/2 rounded"
           style={{ width: `${fillWidth}%` }}
         />
+        {/* Clamped so the pill never spills past the card edge at 0% or 100%. */}
         <div
           className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white border border-gray-200 rounded-full px-2.5 py-1 text-xs font-semibold whitespace-nowrap pointer-events-none text-gray-900 shadow-sm transition-[border-color,box-shadow] duration-200 group-hover:border-[#DCA54A] group-hover:shadow-md"
-          style={{ left: `${pillLeft}%` }}
+          style={{ left: `clamp(1.9rem, ${pillLeft}%, calc(100% - 1.9rem))` }}
         >
           {pillLabel}
         </div>
@@ -34,6 +35,7 @@ function SliderField({ label, min, max, step, value, onChange, pillLabel, rightL
           step={step}
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
+          aria-label={label}
           className="absolute inset-0 w-full opacity-0 cursor-pointer"
         />
       </div>
@@ -41,7 +43,9 @@ function SliderField({ label, min, max, step, value, onChange, pillLabel, rightL
   );
 }
 
-export default function EmiCalculator() {
+// EMI card. Opens on the 2 BHK's ₹1.40 crore base price with 20% down, 7%
+// over 25 years; place it inside whichever section needs it.
+export default function EmiCalculator({ className = "" }) {
   const [loan, setLoan] = useState(14000000);
   const [downPercent, setDownPercent] = useState(20);
   const [years, setYears] = useState(25);
@@ -62,86 +66,85 @@ export default function EmiCalculator() {
   const downAmt = loan * downPercent / 100;
 
   return (
-    <section className="w-full min-h-screen bg-[#FAF8F4] flex justify-center items-start p-6 box-border">
-      <div className="w-full max-w-[480px] bg-white p-6 rounded-2xl shadow-[0_2px_20px_rgba(0,0,0,0.07)] transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(0,0,0,0.10)]" data-animate="fade-up">
-        <h3 className="text-[11px] font-bold tracking-[0.1em] uppercase mb-6 text-gray-900">
-          EMI Calculator
-        </h3>
+    <div className={`w-full bg-white p-5 sm:p-6 rounded-2xl shadow-[0_2px_20px_rgba(0,0,0,0.07)] ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(0,0,0,0.10)] ${className}`} data-animate="fade-up">
+      <h3 className="text-[11px] font-bold tracking-[0.1em] uppercase mb-6 text-gray-900">
+        EMI Calculator
+      </h3>
 
-        {/* Loan Amount */}
-        <div className="mb-6">
-          <p className="text-[11px] uppercase tracking-widest text-gray-400 mb-1.5">
-            Loan Amount
-          </p>
-          <div className="flex items-center border-b-2 border-gray-900 pb-1">
-            <input
-              type="number"
-              value={loan}
-              onChange={(e) => setLoan(Number(e.target.value))}
-              className="flex-1 border-none outline-none text-[clamp(20px,5vw,28px)] font-bold bg-transparent text-gray-900 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-            />
-            <span className="text-gray-300 text-lg ml-1.5">₹</span>
-          </div>
-        </div>
-
-        {/* Advance Payment — shows % + ₹ amount */}
-        <SliderField
-          label="Advance Payment"
-          min={0}
-          max={100}
-          step={1}
-          value={downPercent}
-          onChange={setDownPercent}
-          pillLabel={`${downPercent}%`}
-          rightLabel={
-            <>
-              <span className="text-sm font-bold text-gray-900">{downPercent}%</span>
-              <span className="text-xs text-gray-400">₹{fmt(downAmt)}</span>
-            </>
-          }
-        />
-
-        {/* Duration */}
-        <SliderField
-          label="Duration"
-          min={1}
-          max={30}
-          step={1}
-          value={years}
-          onChange={setYears}
-          pillLabel={`${years} Yrs`}
-          rightLabel={
-            <span className="text-sm font-bold text-gray-900">{years} Years</span>
-          }
-        />
-
-        {/* Interest Rate */}
-        <SliderField
-          label="Interest Rate"
-          min={5}
-          max={15}
-          step={0.1}
-          value={rate}
-          onChange={setRate}
-          pillLabel={`${rate.toFixed(1)}%`}
-          rightLabel={
-            <span className="text-sm font-bold text-gray-900">{rate.toFixed(1)}%</span>
-          }
-        />
-
-        {/* Result */}
-        <div className="border-t border-gray-100 pt-4 mt-2">
-          <p className="text-[11px] uppercase tracking-widest text-gray-400 mb-1.5">
-            Estimated Monthly EMI
-          </p>
-          <div className="flex items-baseline gap-1.5">
-            <span key={emi} className="value-pop text-[clamp(26px,6vw,36px)] font-bold text-gray-900">
-              {fmt(emi)}
-            </span>
-            <span className="text-gray-400 text-sm">₹ / month</span>
-          </div>
+      {/* Property value */}
+      <div className="mb-6">
+        <label htmlFor="emi-amount" className="block text-[11px] uppercase tracking-widest text-gray-500 mb-1.5">
+          Property Value
+        </label>
+        <div className="flex items-center border-b-2 border-gray-900 pb-1">
+          <span className="text-gray-400 text-lg mr-1.5">₹</span>
+          <input
+            id="emi-amount"
+            type="number"
+            inputMode="numeric"
+            value={loan}
+            onChange={(e) => setLoan(Number(e.target.value))}
+            className="flex-1 min-w-0 border-none outline-none text-[clamp(20px,5vw,28px)] font-bold bg-transparent text-gray-900 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          />
         </div>
       </div>
-    </section>
+
+      <SliderField
+        label="Down Payment"
+        min={0}
+        max={100}
+        step={1}
+        value={downPercent}
+        onChange={setDownPercent}
+        pillLabel={`${downPercent}%`}
+        rightLabel={
+          <>
+            <span className="text-sm font-bold text-gray-900">{downPercent}%</span>
+            <span className="text-xs text-gray-500">₹{fmt(downAmt)}</span>
+          </>
+        }
+      />
+
+      <SliderField
+        label="Tenure"
+        min={1}
+        max={30}
+        step={1}
+        value={years}
+        onChange={setYears}
+        pillLabel={`${years} Yrs`}
+        rightLabel={
+          <span className="text-sm font-bold text-gray-900">{years} Years</span>
+        }
+      />
+
+      <SliderField
+        label="Interest Rate"
+        min={5}
+        max={15}
+        step={0.1}
+        value={rate}
+        onChange={setRate}
+        pillLabel={`${rate.toFixed(1)}%`}
+        rightLabel={
+          <span className="text-sm font-bold text-gray-900">{rate.toFixed(1)}%</span>
+        }
+      />
+
+      <div className="border-t border-gray-100 pt-4 mt-2">
+        <p className="text-[11px] uppercase tracking-widest text-gray-500 mb-1.5">
+          Estimated Monthly EMI
+        </p>
+        <div className="flex items-baseline gap-1.5">
+          <span key={emi} className="value-pop text-[clamp(26px,6vw,36px)] font-bold text-gray-900">
+            ₹{fmt(emi)}
+          </span>
+          <span className="text-gray-500 text-sm">/ month</span>
+        </div>
+        <p className="mt-2 text-[11px] leading-relaxed text-gray-500">
+          Indicative, for planning only; your rate depends on the lender and your profile.
+        </p>
+      </div>
+    </div>
   );
 }

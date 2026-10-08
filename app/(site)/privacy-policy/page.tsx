@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import PageBanner from "@/components/PageBanner";
 import { CONTACT, CONSENT_TEXT, RERA } from "@/data/projectData";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Privacy Policy & Disclaimer | Bhartiya Nikoo Homes 8",
   description:
     "Privacy policy and disclaimer for the Bhartiya Nikoo Homes 8 channel partner website operated by Real Revenue.",
-  alternates: { canonical: "https://bhartiyanikoohomes8.com/privacy-policy" },
-};
+  path: "/privacy-policy",
+});
 
 export default function PrivacyPolicyPage() {
   return (

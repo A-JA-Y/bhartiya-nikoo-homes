@@ -14,7 +14,7 @@ export default function FloatingWhatsapp() {
       title={CONTACT.phoneDisplay}
       className="
         fixed bottom-6 right-3 z-[1000]
-        flex items-center justify-center
+        hidden md:flex items-center justify-center
         w-16 h-16
         rounded-full bg-[#25D366] text-white
         shadow-xl

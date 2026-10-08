@@ -7,9 +7,9 @@ export default function PageBanner({ title, subtitle, eyebrow }) {
             {eyebrow}
           </p>
         ) : null}
-        <h2 className="rise rise-2 text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+        <h1 className="rise rise-2 text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
           {title}
-        </h2>
+        </h1>
         <span className="rise rise-3 block w-12 h-[2px] bg-[#DCA54A] mx-auto mt-4" aria-hidden="true" />
         {subtitle ? (
           <p className="rise rise-4 text-gray-600 text-sm mt-4 max-w-2xl mx-auto leading-relaxed">

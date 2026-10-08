@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Md from "@/components/content/Md";
 
 // Answers stay in the markup while collapsed, so they remain readable to
-// search engines and match the FAQPage schema.
+// search engines and match the FAQPage schema. Answers may carry
+// [label](/path) links, rendered by Md.
 export default function FaqAccordion({ items, idPrefix = "faq" }) {
   const [open, setOpen] = useState(0);
 
@@ -15,7 +17,7 @@ export default function FaqAccordion({ items, idPrefix = "faq" }) {
           <div
             key={item.q}
             data-animate="fade-up"
-            className={`rounded-lg border bg-white transition-colors duration-300 ${
+            className={`rounded-xl border bg-white transition-colors duration-300 ${
               isOpen ? "border-[#DCA54A] shadow-sm" : "border-gray-200 hover:border-[#e5dcc5]"
             }`}
           >
@@ -26,7 +28,7 @@ export default function FaqAccordion({ items, idPrefix = "faq" }) {
                 aria-expanded={isOpen}
                 aria-controls={`${idPrefix}-a-${i}`}
                 onClick={() => setOpen(isOpen ? -1 : i)}
-                className="w-full flex items-center justify-between gap-4 text-left px-5 py-4 text-sm md:text-base font-semibold text-gray-900 cursor-pointer"
+                className="w-full flex items-center justify-between gap-4 text-left px-4 sm:px-5 py-4 text-[0.9375rem] md:text-base font-semibold leading-snug text-gray-900 cursor-pointer"
               >
                 <span>{item.q}</span>
                 <span
@@ -44,12 +46,15 @@ export default function FaqAccordion({ items, idPrefix = "faq" }) {
               id={`${idPrefix}-a-${i}`}
               role="region"
               aria-labelledby={`${idPrefix}-q-${i}`}
+              inert={!isOpen || undefined}
               className={`grid transition-[grid-template-rows] duration-500 ease-out ${
                 isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
               }`}
             >
               <div className="overflow-hidden">
-                <p className="px-5 pb-5 text-gray-600 text-sm leading-relaxed">{item.a}</p>
+                <p className="px-4 sm:px-5 pb-5 text-gray-600 text-sm md:text-[0.9375rem] leading-relaxed">
+                  <Md text={item.a} />
+                </p>
               </div>
             </div>
           </div>

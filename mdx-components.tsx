@@ -720,7 +720,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     a: ({ href, children, ...rest }) => (
       <Link
         href={href ?? "#"}
-        className="text-[#2e7d52] font-medium underline underline-offset-4 decoration-emerald-200 hover:decoration-[#2e7d52] transition-colors"
+        className="text-link"
         {...rest}
       >
         {children}

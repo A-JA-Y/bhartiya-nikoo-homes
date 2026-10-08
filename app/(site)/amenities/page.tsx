@@ -1,258 +1,189 @@
-import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import Amenities from "@/components/Amenities";
-import StickyDownloadButton from "@/components/StickyButton";
-import FaqAccordion from "@/components/FaqAccordion";
-import OpenModalButton from "@/components/OpenModalButton";
-import heroImage from "@/assets/nikoo-homes-8-aerial-view.webp";
+import { FaDumbbell, FaLaptop, FaUsers, FaBook } from "react-icons/fa";
+import copy from "@/content/pages/amenities";
+import { blocksOfType, getFaqs, getFaqSection, getSection, paragraphs } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Nikoo Homes 8 Amenities and the Black Swan Club",
-  description:
-    "Nikoo Homes 8 amenities: the 40,000+ sq ft Black Swan Club with rooftop pool, gym, spa, library, co-working and mini theatre, plus tennis, squash, a car-free Central Spine and themed gardens.",
-  alternates: { canonical: "https://bhartiyanikoohomes8.com/amenities" },
-};
+import PageHero from "@/components/content/PageHero";
+import Section, { SectionHeading } from "@/components/content/Section";
+import MediaSection, { TextSection } from "@/components/content/MediaSection";
+import Blocks from "@/components/content/Blocks";
+import Figure from "@/components/content/Figure";
+import LabelCards from "@/components/content/LabelCards";
+import ImageStrip from "@/components/content/ImageStrip";
+import FaqSection from "@/components/content/FaqSection";
+import ContactBlock from "@/components/content/ContactBlock";
+import ExploreGrid from "@/components/content/ExploreGrid";
+import Md from "@/components/content/Md";
+import { PriceSheetButton, SiteVisitLink } from "@/components/content/CtaButtons";
 
-const amenityGroups = [
-  {
-    title: "The Black Swan Club — 40,000+ Sq Ft",
-    items: ["Rooftop swimming pool", "Fully equipped gymnasium", "Spa and wellness suite", "Indoor games room", "Library", "Co-working spaces", "Mini theatre", "Banquet and party hall", "Guest rooms for visiting family"],
-  },
-  {
-    title: "Pools & Water",
-    items: ["Rooftop swimming pool", "Lap pool", "Leisure pool", "Children's pool"],
-  },
-  {
-    title: "Sports",
-    items: ["Tennis court", "Basketball court", "Squash court", "Multipurpose court", "Rock climbing wall", "Jogging track", "Skating track"],
-  },
-  {
-    title: "Wellness & Landscape",
-    items: ["Pedestrianised Central Spine", "Meditation and yoga deck", "Sensory garden", "Aroma garden", "Meditation garden", "Linear garden", "Community garden and organic kitchen", "Bird baths", "Party lawn"],
-  },
-  {
-    title: "Family & Social",
-    items: ["Children's play areas", "Barbecue pit", "Cabana shacks", "Pet zone", "Neighbourhood retail within the development"],
-  },
-  {
-    title: "Sustainability & Infrastructure",
-    items: ["Bioswale for stormwater management", "Tree canopy programme", "Rooftop wildflower garden", "Sewage treatment plant with treated water reuse", "Rainwater harvesting", "Two basement parking levels plus perimeter ring road", "24x7 CCTV surveillance and gated security", "Power backup for common areas and lifts"],
-  },
-];
+import heroImage from "@/assets/black-swan-club.webp";
+import aerialView from "@/assets/nikoo-homes-8-aerial-view.webp";
+import clubLounge from "@/assets/black-swan-club-lounge.webp";
+import clubDining from "@/assets/black-swan-club-dining.webp";
+import partyIllustration from "@/assets/black-swan-club-party-illustration.webp";
+import tennisCourt from "@/assets/nikoo-homes-8-tennis-court.webp";
+import runningIllustration from "@/assets/nikoo-life-health.webp";
+import circleOfLife from "@/assets/circle-of-life-lawn.webp";
+import centralSpine from "@/assets/central-spine-walkway.webp";
+import communityGarden from "@/assets/community-garden-illustration.webp";
+import gardenEnclave from "@/assets/garden-enclave-illustration.webp";
+import gardenWalk from "@/assets/garden-walk-illustration.webp";
+import familyIllustration from "@/assets/nikoo-life-family.webp";
+import towers from "@/assets/nikoo-homes-8-towers.webp";
+import mall from "@/assets/bhartiya-mall-of-bengaluru.webp";
+import leela from "@/assets/the-leela-bhartiya-city.webp";
+import highStreet from "@/assets/bhartiya-city-high-street.webp";
+import greenAvenues from "@/assets/bhartiya-city-green-avenues.webp";
 
-const bhartiyaCityNearby = [
-  "Bhartiya Mall of Bengaluru — approximately 8 lakh sq ft, 150+ stores",
-  "The Leela Bhartiya City — 281-key luxury hotel and convention centre",
-  "Chaman Bhartiya School",
-  "BCIT office and IT park",
-  "Performing Arts Pavilion and retail high street",
-  "Four-acre central park",
-];
+const HERO_ALT = "The Black Swan Club with its rooftop swimming pool at Nikoo Homes 8";
 
-const faqData = [
-  {
-    q: "How big is the clubhouse at Nikoo Homes 8?",
-    a: "The Black Swan Club extends to over 40,000 sq ft and includes a rooftop swimming pool, gymnasium, spa, indoor games, library, co-working spaces, a mini theatre, a banquet hall and guest rooms.",
-  },
-  {
-    q: "What pools are there at Nikoo Homes 8?",
-    a: "A rooftop swimming pool at the Black Swan Club, plus a lap pool, a leisure pool and a children's pool.",
-  },
-  {
-    q: "What sports facilities does Nikoo Homes 8 have?",
-    a: "Tennis, basketball, squash and multipurpose courts, a rock climbing wall, a jogging track and a skating track.",
-  },
-  {
-    q: "Is Nikoo Homes 8 pet friendly?",
-    a: "Yes. The amenity plan includes a dedicated pet zone.",
-  },
-  {
-    q: "What is within reach at Bhartiya City?",
-    a: "Within five to seven minutes: Bhartiya Mall of Bengaluru, The Leela Bhartiya City hotel and convention centre, Chaman Bhartiya School, the BCIT office and IT park, the Performing Arts Pavilion and retail high street, and a four-acre central park.",
-  },
-];
+export const metadata = pageMetadata({ ...copy.meta, image: heroImage, imageAlt: HERO_ALT });
+
+const intro = getSection(copy, "intro");
+const glance = getSection(copy, "amenities-at-a-glance");
+const club = getSection(copy, "the-black-swan-club-40-000-sq-ft");
+const pools = getSection(copy, "pools-courts-and-tracks");
+const gardens = getSection(copy, "gardens-decks-and-the-central-spine");
+const family = getSection(copy, "family-children-and-pets");
+const estate = getSection(copy, "estate-security-and-sustainability");
+const beyond = getSection(copy, "amenities-beyond-the-gate-bhartiya-city");
+const cost = getSection(copy, "what-the-amenities-cost-and-when-they-open");
+const crossLinks = getSection(copy, "villa-and-configuration-floor-plan-master-plan-price-and-location");
+const faqSection = getFaqSection(copy);
+const contact = getSection(copy, "contact-us");
+
+const [clubIntro, clubClose] = paragraphs(club);
 
 export default function AmenitiesPage() {
   return (
     <>
-      {/* Schema Markup */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "itemListElement": [
-                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bhartiyanikoohomes8.com/" },
-                  { "@type": "ListItem", "position": 2, "name": "Amenities", "item": "https://bhartiyanikoohomes8.com/amenities" }
-                ]
-              },
-              {
-                "@type": "FAQPage",
-                "mainEntity": faqData.map((item) => ({
-                  "@type": "Question",
-                  "name": item.q,
-                  "acceptedAnswer": { "@type": "Answer", "text": item.a }
-                }))
-              }
-            ]
-          })
-        }}
+      <PageHero
+        title={copy.h1}
+        eyebrow="Bhartiya Garden Enclave amenities"
+        image={heroImage}
+        imageAlt={HERO_ALT}
+        crumbs={[{ name: "Amenities", href: "/amenities" }]}
+        facts={["40,000+ sq ft clubhouse", "4 pools · 4 courts", "Car-free Central Spine", "30+ amenities"]}
+      >
+        <PriceSheetButton />
+        <SiteVisitLink />
+      </PageHero>
+
+      <Section>
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-12">
+          <Blocks blocks={intro.blocks} className="prose-lead" />
+          <Figure image={aerialView} alt="Aerial view of the Black Swan Club, the gardens and the tennis court on the Central Spine" aspect="16/10" />
+        </div>
+      </Section>
+
+      <TextSection section={glance} tone="cream" narrow={false} eyebrow="Thirty-plus items in five groups" />
+
+      {/* The Black Swan Club */}
+      <Section id={club.id} tone="brown">
+        <SectionHeading title={club.title} eyebrow="Zone 14 on the master plan" />
+        <div className="prose-nh mt-6 max-w-3xl">
+          <p>
+            <Md text={clubIntro} />
+          </p>
+        </div>
+        <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-10">
+          <LabelCards
+            items={blocksOfType(club.blocks, "ul")[0]?.items ?? []}
+            columns={2}
+            icons={[FaDumbbell, FaLaptop, FaUsers, FaBook]}
+          />
+          <div className="grid grid-cols-2 gap-3 self-start" data-animate="zoom-in">
+            <div className="relative col-span-2 aspect-[16/9] overflow-hidden rounded-2xl ring-1 ring-white/10">
+              <Image src={partyIllustration} alt="Illustration of residents gathering at the Black Swan Club" fill sizes="(max-width: 1024px) 100vw, 520px" className="object-cover" />
+            </div>
+            <div className="relative aspect-square overflow-hidden rounded-2xl ring-1 ring-white/10">
+              <Image src={clubLounge} alt="Lounge inside the Black Swan Club" fill sizes="(max-width: 1024px) 50vw, 260px" className="object-cover" />
+            </div>
+            <div className="relative aspect-square overflow-hidden rounded-2xl ring-1 ring-white/10">
+              <Image src={clubDining} alt="A chef plating a dish at the Black Swan Club" fill sizes="(max-width: 1024px) 50vw, 260px" className="object-cover" />
+            </div>
+          </div>
+        </div>
+        <div className="prose-nh mt-8 max-w-3xl">
+          <p>
+            <Md text={clubClose} />
+          </p>
+        </div>
+      </Section>
+
+      <MediaSection
+        section={pools}
+        eyebrow="Four pools · Four courts"
+        media={
+          <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-3">
+            <Figure image={tennisCourt} alt="Tennis court at one end of the Central Spine" aspect="4/3" sizes="(max-width: 1024px) 66vw, 320px" />
+            <Figure image={runningIllustration} alt="Illustration of residents running on the jogging track" aspect="2/3" sizes="(max-width: 1024px) 33vw, 160px" />
+          </div>
+        }
       />
 
-      {/* Page Banner with Hero Image */}
-      <section className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src={heroImage}
-            alt="Aerial view of the Black Swan Club, the Circle of Life lawn and the gardens at Nikoo Homes 8"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center hero-kenburns"
+      <MediaSection
+        section={gardens}
+        tone="cream"
+        eyebrow="Bhartiya Garden Enclave"
+        reverse
+        media={<Figure image={circleOfLife} alt="The Circle of Life lawn and the gardens along the Central Spine" aspect="4/3" />}
+        after={
+          <ImageStrip
+            columns={3}
+            aspect="1/1"
+            className="mt-8"
+            images={[
+              { image: centralSpine, alt: "Tree-lined Central Spine walkway", caption: "Central Spine" },
+              { image: communityGarden, alt: "Illustration of the community garden and organic kitchen", caption: "Community garden" },
+              { image: gardenEnclave, alt: "Illustration of a flowering garden", caption: "Sensory gardens" },
+            ]}
           />
-        </div>
+        }
+      />
 
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/50 z-10" />
-
-        {/* Content */}
-        <div className="relative z-20 text-center text-white px-4 max-w-4xl mx-auto">
-          <span className="rise rise-1 inline-block text-[#DCA54A] text-sm md:text-base uppercase tracking-widest font-semibold mb-3">
-            Lifestyle
-          </span>
-          <h3 className="rise rise-2 text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
-            Amenities
-          </h3>
-          <p className="rise rise-3 text-base md:text-lg lg:text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed">
-            A 40,000+ sq ft clubhouse on a car-free spine, a run of themed gardens — and a whole
-            township of amenities five to seven minutes away.
-          </p>
-
-        </div>
-      </section>
-
-      <Amenities />
-
-      {/* Intro Section */}
-      <section className="w-full py-16 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-5xl mx-auto" data-animate="fade-up">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Nikoo Homes 8 Amenities and the Black Swan Club
-          </h1>
-          <p className="text-lg md:text-xl leading-relaxed text-gray-700 mb-6">
-            The organising idea at Nikoo Homes 8 is simple: keep the cars on the perimeter and give
-            the middle of the site to people. The pedestrianised Central Spine runs the full length
-            of the plot, the Black Swan Club sits on it, and the landscape programme is strung along
-            it — so the amenities are something you walk through every day, not a block you visit.
-          </p>
-          <p className="text-lg md:text-xl leading-relaxed text-gray-700">
-            Around seventy-five per cent of the site is open. And because Bhartiya Urban still runs
-            the mall, the hotel, the school and the office park at Bhartiya City, the amenities
-            outside the gate are maintained by the same developer that built them.
-          </p>
-        </div>
-      </section>
-
-      {/* Amenity groups */}
-      <section className="w-full py-16 px-6 md:px-12 lg:px-20 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-4" data-animate="fade-up">
-            Everything Inside the Gate
-          </h2>
-          <p className="text-lg text-center max-w-4xl mx-auto text-gray-700 mb-12" data-animate="fade-up">
-            Six groups of amenities, from the clubhouse to the infrastructure that keeps the site
-            running.
-          </p>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" data-stagger>
-            {amenityGroups.map((group) => (
-              <div key={group.title} data-animate="fade-up" className="card-anim bg-white rounded-xl p-6 border-l-4 border-[#DCA54A] shadow-sm">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{group.title}</h3>
-                <ul className="space-y-1.5">
-                  {group.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-gray-600 text-sm">
-                      <span className="text-[#c8922a] mt-0.5">✓</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+      <MediaSection
+        section={family}
+        eyebrow="Play, barbecue and a pet zone"
+        media={
+          <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-3">
+            <Figure image={gardenWalk} alt="Illustration of a resident walking two dogs on the lawns" aspect="4/3" sizes="(max-width: 1024px) 66vw, 320px" />
+            <Figure image={familyIllustration} alt="Illustration of a family cooking together" aspect="2/3" sizes="(max-width: 1024px) 33vw, 160px" />
           </div>
-        </div>
-      </section>
+        }
+      />
 
-      {/* Bhartiya City */}
-      <section className="w-full py-16 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-5xl mx-auto" data-animate="fade-up">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Within Five to Seven Minutes, at Bhartiya City
-          </h2>
-          <p className="text-lg leading-relaxed text-gray-700 mb-6">
-            Nikoo Homes 8 is not inside Bhartiya City — it sits on its own parcel at Bellahalli —
-            but the township is a short drive away, and its amenities are part of everyday life here.
-          </p>
-          <ul className="grid md:grid-cols-2 gap-3 mb-6" data-stagger>
-            {bhartiyaCityNearby.map((item) => (
-              <li key={item} data-animate="fade-up" className="flex items-start gap-3 bg-[#FAF8F4] border border-[#e5dcc5] rounded-lg px-4 py-3 text-gray-700 text-sm">
-                <span className="text-[#c8922a] mt-0.5">✓</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/bhartiya-city" className="link-anim text-[#c8922a] font-medium">
-              Bhartiya City — the township next door <span className="arrow-nudge">→</span>
-            </Link>
-            <Link href="/location" className="link-anim text-[#c8922a] font-medium">
-              Location & connectivity <span className="arrow-nudge">→</span>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <MediaSection
+        section={estate}
+        tone="sand"
+        eyebrow="The systems behind the site"
+        reverse
+        media={<Figure image={towers} alt="Nikoo Homes 8 towers above the planted podium and the ring road" aspect="4/3" />}
+      />
 
-      {/* FAQ */}
-      <section className="w-full py-16 px-6 md:px-12 lg:px-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8" data-animate="fade-up">
-            Amenities — Frequently Asked Questions
-          </h2>
-          <FaqAccordion items={faqData} idPrefix="amenities-faq" />
+      <Section id={beyond.id}>
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-12">
+          <SectionHeading title={beyond.title} eyebrow="Five to seven minutes away" />
+          <Blocks blocks={beyond.blocks} />
         </div>
-      </section>
+        <ImageStrip
+          columns={4}
+          className="mt-8"
+          images={[
+            { image: mall, alt: "Shoppers inside Bhartiya Mall of Bengaluru", caption: "Bhartiya Mall of Bengaluru" },
+            { image: leela, alt: "The Leela Bhartiya City hotel at dusk", caption: "The Leela Bhartiya City" },
+            { image: highStreet, alt: "Evening crowd on the Bhartiya City high street", caption: "Retail high street" },
+            { image: greenAvenues, alt: "Towers and lawns at Bhartiya City", caption: "Central park and gardens" },
+          ]}
+        />
+      </Section>
 
-      {/* CTA Section */}
-      <section className="w-full py-16 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-4xl mx-auto text-center" data-animate="fade-up">
-          <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
-            Come and Walk the Spine
-          </h2>
-          <p className="text-lg md:text-xl text-black mb-8 leading-relaxed">
-            The car-free centre of this project is the part that does not photograph. We run site
-            visits seven days a week with pickup from Hebbal or Manyata, and you leave with the cost
-            sheet.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/contact-us"
-              className="btn-anim px-8 py-4 bg-[#DCA54A] text-white font-semibold rounded-lg hover:bg-[#c9953a] transition-colors text-lg"
-            >
-              Book a Site Visit
-            </Link>
-            <OpenModalButton className="btn-anim px-8 py-4 border-2 border-[#DCA54A] text-[#DCA54A] font-semibold rounded-lg hover:bg-[#DCA54A] hover:text-white transition-colors text-lg cursor-pointer">
-              Get the Price Sheet
-            </OpenModalButton>
-          </div>
-        </div>
-      </section>
-      <div className="relative">
-        <StickyDownloadButton />
-      </div>
+      <TextSection section={cost} tone="cream" eyebrow="Charges and timing" />
+      <TextSection section={crossLinks} eyebrow="Keep reading" />
+      <FaqSection title={faqSection.title} items={getFaqs(copy)} idPrefix="amenities-faq" />
+      <ExploreGrid current="/amenities" />
+      <ContactBlock section={contact} disclaimer={copy.disclaimer} idPrefix="amenities-contact" image={heroImage} />
     </>
   );
 }

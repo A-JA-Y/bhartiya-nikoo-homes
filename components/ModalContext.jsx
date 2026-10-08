@@ -2,13 +2,15 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-const ModalContext = createContext({
-  isOpen: false,
-  openModal: () => {},
-  closeModal: () => {},
-  isLeadSubmitted: false,
-  setIsLeadSubmitted: () => {},
-});
+const ModalContext = createContext(
+  /** @type {{ isOpen: boolean; openModal: () => void; closeModal: () => void; isLeadSubmitted: boolean; setIsLeadSubmitted: (submitted: boolean) => void }} */ ({
+    isOpen: false,
+    openModal: () => {},
+    closeModal: () => {},
+    isLeadSubmitted: false,
+    setIsLeadSubmitted: () => {},
+  })
+);
 
 export const ModalProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);

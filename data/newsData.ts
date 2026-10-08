@@ -33,10 +33,10 @@ export type NewsMeta = {
 const NewsData: NewsMeta[] = [
   {
     id: "news-blue-line",
-    title: "Blue Line Metro: Hebbal Targeted for June 2027, Nagawara for March 2028 — What It Means for Thanisandra",
+    title: "Blue Line Metro: Hebbal Targeted for June 2027, Nagawara for March 2028, and What It Changes for Thanisandra",
     slug: "namma-metro-blue-line-hebbal-nagawara-thanisandra",
     excerpt:
-      "The Namma Metro Blue Line (Phase 2B) gives the Hebbal–Thanisandra corridor its first rail alternative to the Hebbal road bottleneck. Here is the timeline and why it matters for Nikoo Homes 8.",
+      "Phase 2B runs from Kasturi Nagar through Nagawara, Veerannapalya, Kempapura and Hebbal to the airport. The Hebbal date gives this corridor its first rail route to the airport; the Nagawara interchange gives it a way around the Hebbal junction. Why the second matters more for a Bellahalli commute, and what to do with a 2026 purchase in the meantime.",
     metaTitle: "Blue Line Metro Hebbal 2027, Nagawara 2028 | Thanisandra Impact",
     metaDescription:
       "Namma Metro Blue Line Phase 2B timeline — Hebbal June 2027, Nagawara March 2028 — and what it changes for commuters and buyers at Nikoo Homes 8, Thanisandra.",
@@ -56,10 +56,10 @@ const NewsData: NewsMeta[] = [
   },
   {
     id: "news-launch",
-    title: "Bhartiya Urban Launches Nikoo Homes 8 at Bellahalli: 1,010 Homes, ₹2,000 Crore Business Potential",
+    title: "Bhartiya City New Launch: Bhartiya Urban Opens Nikoo Homes 8 at Bellahalli, 1,010 Homes on 11.35 Acres",
     slug: "bhartiya-urban-launches-nikoo-homes-8-bellahalli",
     excerpt:
-      "The eighth Nikoo Homes phase launched on 17 June 2026 — six towers, studios to 4 BHK and a 40,000 sq ft clubhouse on 11.35 acres off Thanisandra Main Road.",
+      "The eighth Nikoo Homes phase and the Bhartiya City new project of 2026: six towers of 16 to 24 floors, studio to 4 BHK with a duplex loft and courtyard villas, a 40,000 sq ft Black Swan Club and 75% open ground, five to seven minutes from the township, with a stated business potential of over ₹2,000 crore.",
     metaTitle: "Nikoo Homes 8 Launched at Bellahalli | 1,010 Homes by Bhartiya Urban",
     metaDescription:
       "Bhartiya Urban launched Nikoo Homes 8 on 17 June 2026: 1,010 homes on 11.35 acres at Bellahalli, studios from ₹67 lakh, RERA registered, completion December 2030.",

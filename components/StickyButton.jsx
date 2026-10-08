@@ -3,17 +3,15 @@ import { FaDownload } from "react-icons/fa";
 import { BROCHURE } from "@/data/projectData";
 
 import { useModal } from "./ModalContext";
+import useLeadUnlocked, { downloadBrochure } from "./useLeadUnlocked";
 
 export default function StickyDownloadButton() {
   const { openModal } = useModal();
+  const unlocked = useLeadUnlocked();
   const handleClick = (e) => {
     e.preventDefault();
-    const unlocked = localStorage.getItem("plansUnlocked") === "true";
     if (unlocked) {
-      const link = document.createElement("a");
-      link.href = BROCHURE.href;
-      link.download = BROCHURE.fileName;
-      link.click();
+      downloadBrochure(BROCHURE);
     } else {
       openModal();
     }
@@ -26,7 +24,7 @@ export default function StickyDownloadButton() {
       className="
         slide-in-right group
         fixed bottom-56 right-0
-        flex flex-col items-center justify-center
+        hidden md:flex flex-col items-center justify-center
         bg-[#c8952a] text-white font-semibold
         shadow-lg transition-all duration-300
         hover:bg-[#b07d1f] hover:pr-[11px]

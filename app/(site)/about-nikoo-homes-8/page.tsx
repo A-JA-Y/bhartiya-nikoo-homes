@@ -1,111 +1,155 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import PageBanner from "@/components/PageBanner";
-import AboutProject from "@/components/AboutProject";
-import GaurTownship from "@/components/GaurTownship";
-import StickyDownloadButton from "@/components/StickyButton";
-import OpenModalButton from "@/components/OpenModalButton";
-import { RERA } from "@/data/projectData";
+import copy from "@/content/pages/about";
+import { blocksOfType, getFaqs, getFaqSection, getSection, paragraphs } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About Nikoo Homes 8 | Bhartiya Garden Enclave, Bellahalli",
-  description:
-    "About Bhartiya Nikoo Homes 8 — 1,010 homes across six towers on 11.35 acres at Bellahalli, off Thanisandra Main Road, with 75% open space and a car-free Central Spine.",
-  alternates: { canonical: "https://bhartiyanikoohomes8.com/about-nikoo-homes-8" },
-};
+import PageHero from "@/components/content/PageHero";
+import Section, { SectionHeading } from "@/components/content/Section";
+import MediaSection, { TextSection } from "@/components/content/MediaSection";
+import Blocks from "@/components/content/Blocks";
+import Figure from "@/components/content/Figure";
+import TopicGrid from "@/components/content/TopicGrid";
+import FaqSection from "@/components/content/FaqSection";
+import ContactBlock from "@/components/content/ContactBlock";
+import ExploreGrid from "@/components/content/ExploreGrid";
+import ReraCard from "@/components/content/ReraCard";
+import Md from "@/components/content/Md";
+import { PriceSheetButton, SiteVisitLink } from "@/components/content/CtaButtons";
 
-const homeMix = [
-  { config: "Studio", size: "501 sq ft" },
-  { config: "1 BHK", size: "786 sq ft" },
-  { config: "1 BHK + Study", size: "1,088 sq ft" },
-  { config: "2 BHK", size: "1,165 sq ft" },
-  { config: "2 BHK + Study", size: "1,371 sq ft" },
-  { config: "3 BHK", size: "1,730 sq ft" },
-  { config: "3 BHK + Study", size: "2,006 sq ft" },
-  { config: "3 BHK Duplex Loft", size: "2,132 sq ft" },
-  { config: "4 BHK + Staff", size: "2,506 sq ft" },
+import heroImage from "@/assets/nikoo-homes-8-aerial-view.webp";
+import gardenEnclave from "@/assets/garden-enclave-illustration.webp";
+import towers from "@/assets/nikoo-homes-8-towers.webp";
+import bhartiyaCity from "@/assets/bhartiya-city-aerial.webp";
+import masterPlan from "@/assets/nikoo-homes-8-master-plan.webp";
+import interiorLoft from "@/assets/interior-loft.webp";
+import interior2Bhk from "@/assets/interior-2-bhk.webp";
+import interiorBedroom from "@/assets/interior-bedroom.webp";
+import clubRooftop from "@/assets/black-swan-club.webp";
+import mall from "@/assets/bhartiya-mall-of-bengaluru.webp";
+import leela from "@/assets/the-leela-bhartiya-city.webp";
+
+const HERO_ALT = "Aerial view of the Black Swan Club, the Central Spine gardens and the tennis court at Nikoo Homes 8";
+
+export const metadata = pageMetadata({ ...copy.meta, image: heroImage, imageAlt: HERO_ALT });
+
+const intro = getSection(copy, "intro");
+const overview = getSection(copy, "overview");
+const history = getSection(copy, "from-nikoo-homes-1-to-nikoo-homes-8");
+const versus = getSection(copy, "vs-nikoo-homes-5");
+const review = getSection(copy, "review-what-works-and-what-to-weigh");
+const rera = getSection(copy, "rera-number-launch-and-possession-date");
+const developer = getSection(copy, "about-bhartiya-urban");
+const faqSection = getFaqSection(copy);
+const contact = getSection(copy, "contact-us");
+
+const topics = [
+  { section: getSection(copy, "master-plan"), image: masterPlan, alt: "Nikoo Homes 8 landscape master plan with the six towers and the Central Spine" },
+  { section: getSection(copy, "villa-and-configuration"), image: interiorLoft, alt: "Double-height living room of the 3 BHK duplex loft" },
+  { section: getSection(copy, "price"), image: interior2Bhk, alt: "Living room render of a Nikoo Homes 8 2 BHK" },
+  { section: getSection(copy, "floor-plan"), image: interiorBedroom, alt: "Bedroom with a bay window at Nikoo Homes 8" },
+  { section: getSection(copy, "amenities"), image: clubRooftop, alt: "The Black Swan Club with its rooftop swimming pool" },
+  { section: getSection(copy, "location"), image: mall, alt: "Bhartiya Mall of Bengaluru, two to five minutes from Nikoo Homes 8" },
 ];
+
+// Review section: intro, "What works" list, "What to weigh" list, verdict.
+const [reviewIntro, reviewVerdict] = paragraphs(review);
+const [worksList, weighList] = blocksOfType(review.blocks, "ul");
+const [worksLabel, weighLabel] = blocksOfType(review.blocks, "label");
 
 export default function AboutNikooHomes8Page() {
   return (
     <>
-      <PageBanner
-        eyebrow="The Project"
-        title="About Nikoo Homes 8"
-        subtitle="The eighth Nikoo Homes phase by Bhartiya Urban — Bhartiya Garden Enclave, 1,010 homes on 11.35 acres at Bellahalli, off Thanisandra Main Road."
-      />
-      <AboutProject heading={true} />
+      <PageHero
+        title={copy.h1}
+        eyebrow="Bhartiya Garden Enclave · Review"
+        image={heroImage}
+        imageAlt={HERO_ALT}
+        crumbs={[{ name: "About Nikoo Homes 8", href: "/about-nikoo-homes-8" }]}
+        facts={["11.35 acres", "6 towers · 1,010 homes", "Launched 17 June 2026", "Possession December 2030"]}
+      >
+        <PriceSheetButton />
+        <SiteVisitLink />
+      </PageHero>
 
-      <section className="w-full bg-[#FAF8F4] py-16 px-6">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
-          <div data-animate="fade-right">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">An Unusually Broad Home Mix</h2>
-            <p className="text-gray-600 text-sm leading-relaxed mb-5">
-              Nine apartment types run from a 501 sq ft studio to a 2,506 sq ft four-bedroom home
-              with staff quarters. A limited number of low-rise courtyard villas — three bedrooms
-              plus study, and four bedrooms, in the 2,800 to 3,230 sq ft range — are also part of
-              the plan. Availability and pricing on these change release to release, so ask.
-            </p>
-            <ul className="grid grid-cols-2 gap-2" data-stagger>
-              {homeMix.map((item) => (
-                <li
-                  key={item.config}
-                  data-animate="fade-up"
-                  className="card-anim bg-white border border-[#e5dcc5] rounded-md px-3 py-2"
-                >
-                  <span className="block text-sm font-semibold text-gray-900">{item.config}</span>
-                  <span className="block text-xs text-[#c8922a]">{item.size}</span>
+      <Section narrow>
+        <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+          <Blocks blocks={intro.blocks} className="prose-lead" />
+          <Figure
+            image={gardenEnclave}
+            alt="Illustration of a garden in bloom outside a home at Bhartiya Garden Enclave"
+            aspect="3/4"
+            className="mx-auto w-2/3 md:w-full"
+          />
+        </div>
+      </Section>
+
+      <MediaSection
+        section={overview}
+        tone="cream"
+        eyebrow="At a glance"
+        reverse
+        media={<Figure image={towers} alt="Nikoo Homes 8 towers above the landscaped podium" aspect="4/5" caption="Six towers, A to F, around a car-free Central Spine. Artist's impression." />}
+      />
+
+      <MediaSection
+        section={history}
+        eyebrow="Nikoo Homes 1 to 9"
+        media={<Figure image={bhartiyaCity} alt="Aerial view of Bhartiya City, home to Nikoo Homes 1 to 5" aspect="4/3" caption="Bhartiya City, five to seven minutes from Bellahalli." />}
+      />
+
+      <TextSection section={versus} tone="sand" narrow={false} eyebrow="Resale inside the township or launch next door" />
+
+      <TopicGrid topics={topics} eyebrow="The project, topic by topic" />
+
+      {/* Review: what works and what to weigh */}
+      <Section id={review.id} tone="cream">
+        <SectionHeading title={review.title} eyebrow="Our take" />
+        <div className="prose-nh mt-6 max-w-3xl">
+          <p>
+            <Md text={reviewIntro} />
+          </p>
+        </div>
+        <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="rounded-2xl border border-line bg-white p-5 shadow-sm sm:p-6" data-animate="fade-up">
+            <h3 className="text-lg font-semibold text-gray-900">{worksLabel?.text}</h3>
+            <ul className="check-list prose-nh-list mt-4">
+              {worksList?.items.map((item) => (
+                <li key={item}>
+                  <Md text={item} />
                 </li>
               ))}
             </ul>
           </div>
-
-          <div className="flex flex-col gap-6" data-animate="fade-left">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Pricing, Clubhouse and RERA</h2>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Launch pricing runs at roughly ₹12,000 to ₹12,500 per sq ft for the apartments.
-                The clubhouse — the Black Swan Club — extends to over 40,000 sq ft. The project
-                launched on {RERA.launch} with a stated business potential of over ₹2,000 crore,
-                and is registered with Karnataka RERA in two phases, with a filed completion date
-                of {RERA.completion}.
-              </p>
-            </div>
-            <div className="bg-white border-l-4 border-[#DCA54A] rounded-r-lg p-5 shadow-sm">
-              <h3 className="text-base font-bold text-gray-900 mb-2">Is Nikoo Homes 8 inside Bhartiya City?</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                No. Nikoo Homes 8 is on a separate parcel of roughly 11 acres at Bellahalli, about
-                five to seven minutes&apos; drive from the 125-acre Bhartiya City township. Residents
-                have easy access to the mall, hotel, school and office park there — the township
-                next door is the selling point, not a shared boundary.
-              </p>
-              <Link href="/bhartiya-city" className="link-anim inline-block mt-3 text-sm font-semibold text-[#c8922a]">
-                Bhartiya City — the township next door <span className="arrow-nudge">→</span>
-              </Link>
-            </div>
-            <div className="text-sm text-gray-600 space-y-1">
-              <p><strong>RERA (Phase 1):</strong> {RERA.phase1}</p>
-              <p><strong>RERA (Phase 2):</strong> {RERA.phase2}</p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <OpenModalButton className="btn-anim bg-[#c8952a] hover:bg-[#b07d1f] text-white text-xs font-semibold tracking-widest uppercase px-6 py-3 rounded-md cursor-pointer">
-                Get the Price Sheet
-              </OpenModalButton>
-              <Link
-                href="/master-plan"
-                className="btn-anim border-2 border-[#DCA54A] text-[#c8922a] hover:bg-[#DCA54A] hover:text-white text-xs font-semibold tracking-widest uppercase px-6 py-3 rounded-md"
-              >
-                See the Master Plan
-              </Link>
-            </div>
+          <div className="rounded-2xl border border-amber-200 bg-amber-50/60 p-5 shadow-sm sm:p-6" data-animate="fade-up">
+            <h3 className="text-lg font-semibold text-gray-900">{weighLabel?.text}</h3>
+            <ul className="check-list is-caution prose-nh-list mt-4">
+              {weighList?.items.map((item) => (
+                <li key={item}>
+                  <Md text={item} />
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      </section>
+        <div className="prose-nh mt-8 max-w-3xl rounded-2xl border-l-4 border-gold bg-white p-5 shadow-sm" data-animate="fade-up">
+          <p>
+            <Md text={reviewVerdict} />
+          </p>
+        </div>
+      </Section>
 
-      <GaurTownship />
-      <div className="relative">
-        <StickyDownloadButton />
-      </div>
+      <MediaSection section={rera} eyebrow="Registration · Possession" media={<ReraCard />} />
+
+      <MediaSection
+        section={developer}
+        tone="sand"
+        eyebrow="The developer · Since 1987"
+        reverse
+        media={<Figure image={leela} alt="The Leela Bhartiya City, built and operated by the Bhartiya Group" aspect="16/10" />}
+      />
+
+      <FaqSection title={faqSection.title} items={getFaqs(copy)} idPrefix="about-faq" />
+      <ExploreGrid current="/about-nikoo-homes-8" />
+      <ContactBlock section={contact} disclaimer={copy.disclaimer} idPrefix="about-contact" />
     </>
   );
 }

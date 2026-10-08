@@ -8,7 +8,7 @@ export default function Footer() {
   const col2 = footerNavLinks.slice(half);
 
   return (
-    <footer className="w-full bg-[#141004] border-t border-[rgba(242,242,242,0.11)] px-[30px] py-[20px] font-[400]">
+    <footer className="w-full bg-[#141004] border-t border-[rgba(242,242,242,0.11)] px-5 sm:px-[30px] pt-8 md:pt-[20px] pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-[20px] font-[400]">
       <div className="flex flex-col m-auto max-w-5xl">
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8 pt-2">
