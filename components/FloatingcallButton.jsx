@@ -9,7 +9,7 @@ export default function FloatingCall() {
       title={`Call ${CONTACT.phoneDisplay}`}
       className="
         fixed bottom-30 right-6 z-[1000]
-        flex items-center justify-center
+        hidden md:flex items-center justify-center
         w-12 h-12
         rounded-full
         bg-blue-600 text-white

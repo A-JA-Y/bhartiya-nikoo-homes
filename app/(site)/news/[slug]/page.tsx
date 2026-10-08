@@ -2,8 +2,9 @@ import BlogContactForm from "@/components/BlogContactForm";
 import RelatedPosts from "@/components/RelatedPosts";
 import NewsData from "@/data/newsData";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import Script from "next/script";
+import JsonLd from "@/components/content/JsonLd";
 import path from "path";
 import fs from "fs";
 
@@ -173,43 +174,19 @@ export default async function NewsDetail({ params }: { params: Params }) {
     <>
       {/* JSON-LD */}
       {news.schemaMarkup && (
-        <Script
-          id="schema-jsonld"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(news.schemaMarkup),
-          }}
-        />
+        <JsonLd data={news.schemaMarkup} />
       )}
       {news?.faqSchema && (
-        <Script
-          id="schema-faq"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(news.faqSchema),
-          }}
-        />
+        <JsonLd data={news.faqSchema} />
       )}
 
-      <Script
-        id="schema-article"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(articleSchema),
-        }}
-      />
+      <JsonLd data={articleSchema} />
 
-      <Script
-        id="schema-breadcrumb"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema),
-        }}
-      />
+      <JsonLd data={breadcrumbSchema} />
 
       <article className="w-full bg-white">
         {/* HERO IMAGE */}
-        <div className="relative w-full h-[480px] md:h-[560px]">
+        <div className="relative w-full h-[320px] sm:h-[420px] md:h-[560px]">
           <Image
             src={news.image}
             alt={news.altText || news.title}
@@ -219,23 +196,24 @@ export default async function NewsDetail({ params }: { params: Params }) {
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 px-6 md:px-16 py-10 max-w-5xl">
+          <div className="absolute bottom-0 left-0 right-0 px-4 sm:px-6 md:px-16 py-8 md:py-10 max-w-5xl">
+            <nav aria-label="Breadcrumb" className="mb-3 text-xs text-white/75">
+              <Link href="/" className="hover:text-white">Home</Link>
+              <span className="mx-1.5 text-white/40">/</span>
+              <Link href="/news" className="hover:text-white">News</Link>
+            </nav>
             <span className="inline-block text-xs font-semibold uppercase tracking-widest text-white/90 border border-white/30 rounded-full px-3 py-1 mb-4">
               {news.category}
             </span>
           
             <p className="text-sm text-white/80 mt-3">
-              {new Date(news.date).toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
+              By {news.author} · {new Date(news.date).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}
             </p>
           </div>
         </div>
 
         {/* CONTENT SECTION */}
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-14 grid grid-cols-1 lg:grid-cols-[2.2fr_1fr] gap-12 items-start">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-10 md:py-14 grid grid-cols-1 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)] gap-12 items-start">
 
           {/* Main Content Area */}
           <div className="max-w-none">

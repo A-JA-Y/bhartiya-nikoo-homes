@@ -6,8 +6,9 @@ import BlogContactForm from "@/components/BlogContactForm";
 import RelatedPosts from "@/components/RelatedPosts";
 import { blogData } from "@/data/blogData";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import Script from "next/script";
+import JsonLd from "@/components/content/JsonLd";
 import path from "path";
 import fs from "fs";
 
@@ -178,43 +179,19 @@ export default async function BlogDetail({ params }: { params: Params }) {
     <>
       {/* JSON-LD */}
       {blog.schemaMarkup && (
-        <Script
-          id="schema-jsonld"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(blog.schemaMarkup),
-          }}
-        />
+        <JsonLd data={blog.schemaMarkup} />
       )}
       {blog?.faqSchema && (
-        <Script
-          id="schema-faq"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(blog.faqSchema),
-          }}
-        />
+        <JsonLd data={blog.faqSchema} />
       )}
 
-      <Script
-        id="schema-article"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(articleSchema),
-        }}
-      />
+      <JsonLd data={articleSchema} />
 
-      <Script
-        id="schema-breadcrumb"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema),
-        }}
-      />
+      <JsonLd data={breadcrumbSchema} />
 
       <article className="w-full bg-white">
         {/* HERO */}
-        <div className="relative w-full h-[480px] md:h-[560px]">
+        <div className="relative w-full h-[320px] sm:h-[420px] md:h-[560px]">
           <Image
             src={blog.image}
             alt={blog.altText || blog.title}
@@ -226,7 +203,12 @@ export default async function BlogDetail({ params }: { params: Params }) {
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
-          <div className="absolute bottom-0 px-6 md:px-16 py-10 max-w-5xl">
+          <div className="absolute bottom-0 px-4 sm:px-6 md:px-16 py-8 md:py-10 max-w-5xl">
+            <nav aria-label="Breadcrumb" className="mb-3 text-xs text-white/75">
+              <Link href="/" className="hover:text-white">Home</Link>
+              <span className="mx-1.5 text-white/40">/</span>
+              <Link href="/blog" className="hover:text-white">Blog</Link>
+            </nav>
             <span className="text-xs text-white/80 border px-3 py-1 rounded-full">
               {blog.category}
             </span>
@@ -235,19 +217,17 @@ export default async function BlogDetail({ params }: { params: Params }) {
               {blog.title}
             </h1> */}
 
-            <p className="text-sm text-white/70 mt-3">
-              {new Date(blog.date).toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}{" "}
-              {/* • {blog.readTime} */}
+            <p className="text-sm text-white/80 mt-3">
+              By {blog.author} · Published {new Date(blog.date).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}
+              {blog.updatedAt && blog.updatedAt !== blog.date && (
+                <> · Last updated {new Date(blog.updatedAt).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}</>
+              )}
             </p>
           </div>
         </div>
 
         {/* BODY */}
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-14 grid lg:grid-cols-[2.2fr_1fr] gap-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-10 md:py-14 grid grid-cols-1 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)] gap-12">
           {/* ✅ FIXED: No components prop */}
           <div className="prose prose-lg max-w-none">
             <BlogContent />

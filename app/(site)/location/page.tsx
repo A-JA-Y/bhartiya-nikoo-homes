@@ -1,25 +1,53 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import StickyDownloadButton from "@/components/StickyButton";
-import FaqAccordion from "@/components/FaqAccordion";
-import { distances, faqs, MAP_EMBED_URL, MAP_LINK_URL } from "@/data/projectData";
+import { FaSchool, FaHospital, FaBriefcase, FaShoppingBag, FaHotel, FaMapMarkerAlt } from "react-icons/fa";
+import copy from "@/content/pages/location";
+import { getFaqs, getFaqSection, getSection, paragraphs } from "@/lib/copy";
+import { pageMetadata } from "@/lib/seo";
+import { MAP_EMBED_URL, MAP_LINK_URL } from "@/data/projectData";
 
-export const metadata: Metadata = {
-  title: "Nikoo Homes 8 Location — Bellahalli, Thanisandra",
-  description:
-    "Nikoo Homes 8 location at Bellahalli, off Thanisandra Main Road: 5–7 min to Bhartiya City, ~5.6 km to Manyata Tech Park, ~25 min to the airport, and the Blue Line metro timeline.",
-  alternates: { canonical: "https://bhartiyanikoohomes8.com/location" },
-};
+import PageHero from "@/components/content/PageHero";
+import Section, { SectionHeading } from "@/components/content/Section";
+import MediaSection, { TextSection } from "@/components/content/MediaSection";
+import Blocks from "@/components/content/Blocks";
+import Figure from "@/components/content/Figure";
+import LabelCards from "@/components/content/LabelCards";
+import ImageStrip from "@/components/content/ImageStrip";
+import FaqSection from "@/components/content/FaqSection";
+import ContactBlock from "@/components/content/ContactBlock";
+import ExploreGrid from "@/components/content/ExploreGrid";
+import Md from "@/components/content/Md";
+import { buttonStyles } from "@/components/content/buttonStyles";
+import { SiteVisitLink } from "@/components/content/CtaButtons";
 
-const locationHighlights = [
-  "Direct access to Thanisandra Main Road",
-  "Bhartiya City (mall, hotel, school, BCIT) — 5–7 min drive",
-  "Bhartiya Mall of Bengaluru — 2–5 min drive",
-  "Manyata Tech Park — approx 5.6 km, 10–15 min off peak",
-  "Manipal Hospital — approx 10 min",
-  "Kempegowda International Airport — approx 25 min",
-  "KR Puram Railway Station — approx 11.7 km",
-];
+import heroImage from "@/assets/bhartiya-city-green-avenues.webp";
+import bhartiyaCity from "@/assets/bhartiya-city-aerial.webp";
+import interiorStudio from "@/assets/interior-studio.webp";
+import towers from "@/assets/nikoo-homes-8-towers.webp";
+import aerialView from "@/assets/nikoo-homes-8-aerial-view.webp";
+import mall from "@/assets/bhartiya-mall-of-bengaluru.webp";
+import leela from "@/assets/the-leela-bhartiya-city.webp";
+import highStreet from "@/assets/bhartiya-city-high-street.webp";
+
+const HERO_ALT = "Residential towers and lawns at Bhartiya City on Thanisandra Main Road, five to seven minutes from Nikoo Homes 8";
+
+export const metadata = pageMetadata({ ...copy.meta, image: heroImage, imageAlt: HERO_ALT });
+
+const intro = getSection(copy, "intro");
+const glance = getSection(copy, "location-at-a-glance");
+const thanisandra = getSection(copy, "thanisandra-main-road-and-bellahalli");
+const manyata = getSection(copy, "manyata-tech-park-and-the-office-belt");
+const hebbal = getSection(copy, "hebbal-and-hennur-road");
+const northBangalore = getSection(copy, "north-bangalore-the-airport-yelahanka-and-jakkur");
+const metro = getSection(copy, "blue-line-metro");
+const nearby = getSection(copy, "schools-hospitals-workplaces-malls-and-hotels-near-nikoo-homes-8");
+const peakHour = getSection(copy, "the-peak-hour-reality");
+const crossLinks = getSection(copy, "villa-and-configuration-floor-plan-master-plan-amenities-and-price");
+const faqSection = getFaqSection(copy);
+const contact = getSection(copy, "contact-us");
+
+// "**Schools:** ..." paragraphs become cards; the closing paragraph stays as text.
+const nearbyParagraphs = paragraphs(nearby);
+const nearbyCards = nearbyParagraphs.filter((p) => p.startsWith("**"));
+const nearbyClose = nearbyParagraphs.filter((p) => !p.startsWith("**"));
 
 const blueLine = [
   { name: "Kasturi Nagar" },
@@ -30,414 +58,140 @@ const blueLine = [
   { name: "Airport" },
 ];
 
-const educationData = [
-  "Chaman Bhartiya School (Bhartiya City) — the closest",
-  "Vidyashilp Academy",
-  "Ryan International",
-  "Delhi Public School North",
-  "Canadian International School",
-  "Stonehill International",
-];
-
-const healthcareData = [
-  "Manipal Hospital — approx 10 min",
-  "Aster CMI Hospital, Hebbal",
-  "Columbia Asia, Hebbal",
-  "Cytecare Cancer Hospital",
-  "Baptist Hospital",
-];
-
-const workspaceData = [
-  "Manyata Tech Park",
-  "BCIT at Bhartiya City",
-  "Kirloskar Business Park",
-  "Karle Town Centre",
-  "The Hebbal office cluster",
-];
-
-const lifestyleData = [
-  "Bhartiya Mall of Bengaluru",
-  "Elements Mall",
-  "Esteem Mall",
-  "Phoenix Mall of Asia",
-  "RMZ Galleria",
-];
-
-const faqData = [
-  faqs[0],
-  faqs[1],
-  faqs[6],
-  faqs[9],
-  {
-    q: "How far is Kempegowda International Airport from Nikoo Homes 8?",
-    a: "Approximately 25 minutes by road via the airport corridor, depending on traffic.",
-  },
-  {
-    q: "Which schools are near Nikoo Homes 8?",
-    a: "Chaman Bhartiya School at Bhartiya City is the closest. The wider Thanisandra and Hebbal catchment is served by Vidyashilp Academy, Ryan International, Delhi Public School North, Canadian International School and Stonehill International.",
-  },
-];
-
 export default function LocationPage() {
   return (
     <>
+      <PageHero
+        title={copy.h1}
+        eyebrow="Bellahalli · Thanisandra · North Bangalore"
+        image={heroImage}
+        imageAlt={HERO_ALT}
+        crumbs={[{ name: "Location", href: "/location" }]}
+        facts={["Manyata ≈ 5.6 km", "Bhartiya City 5–7 min", "Airport ≈ 25 min", "Blue Line 2027–28"]}
+      >
+        <a href={MAP_LINK_URL} target="_blank" rel="noopener noreferrer" className={buttonStyles.primary}>
+          <FaMapMarkerAlt aria-hidden="true" className="text-[11px]" />
+          Get Driving Directions
+        </a>
+        <SiteVisitLink />
+      </PageHero>
 
-
-      {/* Main Content Section */}
-      <section className="w-full bg-white py-16 px-6" id="location">
-        <div className="max-w-5xl mx-auto">
-
-          {/* Label */}
-          <p className="rise rise-1 text-center text-xs font-bold uppercase mb-4 text-[#c8922a] tracking-[0.2em]">
-            Location & Connectivity
-          </p>
-
-          {/* H1 Heading */}
-          <h1 className="rise rise-2 text-center font-bold text-gray-900 mb-6 text-3xl md:text-4xl leading-tight">
-            Nikoo Homes 8 Location — Bellahalli, Thanisandra
-          </h1>
-
-          {/* Intro Paragraph */}
-          <div className="rise rise-3 max-w-4xl mx-auto text-center mb-8">
-            <p className="text-gray-600 leading-relaxed text-sm md:text-base">
-              Nikoo Homes 8 sits at Bellahalli, just off Thanisandra Main Road in North Bengaluru.
-              This is the Hebbal–Thanisandra belt — the corridor that Manyata Tech Park built and
-              that the airport road made permanent. Bhartiya City is five to seven minutes away,
-              Manyata about 5.6 km, and the Blue Line metro is on its way.
-            </p>
-            <div className="mt-4">
-              <a
-                href={MAP_LINK_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-anim inline-block bg-[#c8922a] hover:bg-[#b07d20] text-white font-semibold px-6 py-3 rounded-md transition-colors"
-              >
-                Get Driving Directions <span className="arrow-nudge">→</span>
+      <Section>
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:items-start lg:gap-12">
+          <div data-animate="zoom-in">
+            <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line shadow-md sm:aspect-[16/10]">
+              <iframe
+                src={MAP_EMBED_URL}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                title="Map of Nikoo Homes 8 at Bellahalli, off Thanisandra Main Road, Bengaluru 560064"
+              />
+            </div>
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-sm">
+              <p className="text-gray-600">Bellahalli, off Thanisandra Main Road, Bengaluru 560064</p>
+              <a href={MAP_LINK_URL} target="_blank" rel="noopener noreferrer" className="text-link">
+                Open in Google Maps <span className="arrow-nudge">→</span>
               </a>
             </div>
           </div>
-
-          {/* H2 - Where Exactly */}
-          <h2 className="font-bold text-gray-900 text-2xl md:text-3xl mt-12 mb-4" data-animate="fade-up">
-            Where Exactly Is Nikoo Homes 8?
-          </h2>
-          <p className="text-gray-600 leading-relaxed mb-4 text-sm md:text-base" data-animate="fade-up">
-            The project occupies an approximately 11.35-acre parcel at Bellahalli, on the
-            Thanisandra Main Road frontage belt. It is not inside the 125-acre Bhartiya City
-            township — it is a separate site roughly five to seven minutes&apos; drive away, close
-            enough that the mall, the hotel, the school and the BCIT office park become part of
-            everyday life.
-          </p>
-          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-8" data-animate="fade-up">
-            <p className="font-semibold text-gray-800">Project Address:</p>
-            <p className="text-gray-600 text-sm">
-              Bhartiya Nikoo Homes 8 (Bhartiya Garden Enclave)<br />
-              Bellahalli, off Thanisandra Main Road<br />
-              Bengaluru, Karnataka 560064
-            </p>
-          </div>
-
-          {/* H2 - Manyata commute */}
-          <h2 className="font-bold text-gray-900 text-2xl md:text-3xl mt-12 mb-4" data-animate="fade-up">
-            The Manyata Commute, Honestly
-          </h2>
-          <p className="text-gray-600 leading-relaxed mb-4 text-sm md:text-base" data-animate="fade-up">
-            Manyata is close in kilometres — about five and a half in a straight line — but the
-            drive depends entirely on when you leave. Off peak it is ten to fifteen minutes. At nine
-            in the morning it can be twenty-five to thirty. Hebbal junction, the Outer Ring Road and
-            Hennur Road all bottleneck at rush hour, and everyone who lives here knows it.
-          </p>
-          <p className="text-gray-600 leading-relaxed mb-8 text-sm md:text-base" data-animate="fade-up">
-            That is why the metro matters more here than almost anywhere else in the city — and why
-            this is a home to buy for a 2028-onward commute, not a 2026 one.
-          </p>
-
-          {/* Main Content with Map - Keep Original Layout */}
-          <div className="flex flex-col lg:flex-row gap-12 items-start mt-8">
-
-            {/* LEFT: TEXT */}
-            <div className="flex-1 max-w-lg" data-animate="fade-right">
-
-              <h3 className="font-bold text-gray-900 mb-3 text-base">
-                Distances at a Glance
-              </h3>
-
-              <p className="text-gray-600 leading-relaxed mb-8 text-sm">
-                Measured from the project gate. Drive times vary materially with traffic — visit at
-                your own commute hour before deciding.
-              </p>
-
-              <ul className="space-y-4" data-stagger>
-                {locationHighlights.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 group" data-animate="fade-up">
-                    <span className="text-[#c8922a] mt-1 transition-transform duration-300 group-hover:scale-125">✓</span>
-                    <span className="text-gray-800 text-sm">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* RIGHT: MAP */}
-            <div className="flex-1 w-full" data-animate="fade-left">
-              <div className="w-full h-[300px] md:h-[400px] rounded-lg overflow-hidden shadow-md border border-[#e5dcc5] transition-shadow duration-300 hover:shadow-xl">
-                <iframe
-                  src={MAP_EMBED_URL}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  loading="lazy"
-                  title="Nikoo Homes 8 location map — Bellahalli, Thanisandra Main Road"
-                ></iframe>
-              </div>
-              <a
-                href={MAP_LINK_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-anim inline-block mt-3 text-sm text-[#c8922a]"
-              >
-                View on Google Maps <span className="arrow-nudge">→</span>
-              </a>
-            </div>
-          </div>
+          <Blocks blocks={intro.blocks} className="prose-lead" />
         </div>
-      </section>
+      </Section>
 
-      {/* Metro timeline */}
-      <section className="w-full bg-[#141004] py-16 px-6 text-white">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-center text-xs font-bold uppercase mb-3 text-[#DCA54A] tracking-[0.2em]" data-animate="fade-up">
-            Namma Metro · Blue Line, Phase 2B
-          </p>
-          <h2 className="text-center font-bold text-2xl md:text-3xl mb-4" data-animate="fade-up">
-            The Metro Changes the Arithmetic
-          </h2>
-          <p className="text-center text-white/75 text-sm max-w-3xl mx-auto mb-12 leading-relaxed" data-animate="fade-up">
-            The Blue Line, Phase 2B, runs from Kasturi Nagar through Nagawara, Veerannapalya,
-            Kempapura and Hebbal to the airport. The Hebbal section is targeted for June 2027 and
-            Nagawara for March 2028. Once the Nagawara interchange opens, the corridor gets a rail
-            alternative to the Hebbal road bottleneck for the first time — the single biggest
-            infrastructure variable for this micro-market.
-          </p>
+      <TextSection section={glance} tone="cream" narrow={false} eyebrow="Distances from the gate" />
 
-          <div className="relative">
-          <span aria-hidden="true" className="hidden md:block absolute left-[8%] right-[8%] top-[11px] h-[3px] bg-gradient-to-r from-[#1e5bb8] via-[#3b82f6] to-[#1e5bb8] rounded-full" />
-          <ol className="relative grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-y-10" data-stagger>
+      <MediaSection
+        section={thanisandra}
+        eyebrow="The corridor"
+        media={<Figure image={bhartiyaCity} alt="Aerial view of Bhartiya City on Thanisandra Main Road" aspect="4/3" caption="Bhartiya City, five to seven minutes from the project." />}
+      />
+
+      <MediaSection
+        section={manyata}
+        tone="cream"
+        eyebrow="About 5.6 km"
+        reverse
+        media={<Figure image={interiorStudio} alt="Studio apartment render at Nikoo Homes 8, the unit sized for Manyata tenants" aspect="1/1" caption="Studios from ₹67 lakh suit the Manyata rental market. Artist's impression." />}
+      />
+
+      <MediaSection
+        section={hebbal}
+        eyebrow="Hebbal · Hennur Road"
+        media={<Figure image={towers} alt="Nikoo Homes 8 towers at Bellahalli" aspect="4/3" />}
+      />
+
+      <MediaSection
+        section={northBangalore}
+        tone="cream"
+        eyebrow="Airport corridor"
+        reverse
+        media={<Figure image={aerialView} alt="Aerial view of the gardens and the Black Swan Club at Nikoo Homes 8" aspect="4/3" />}
+      />
+
+      {/* Blue Line metro */}
+      <Section id={metro.id} tone="ink">
+        <SectionHeading title={metro.title} eyebrow="Namma Metro · Phase 2B" />
+        <div className="relative mt-10" data-animate="fade-up">
+          <span aria-hidden="true" className="absolute left-[8%] right-[8%] top-[11px] hidden h-[3px] rounded-full bg-gradient-to-r from-[#1e5bb8] via-[#3b82f6] to-[#1e5bb8] md:block" />
+          <span aria-hidden="true" className="absolute bottom-3 left-[11px] top-3 w-[3px] rounded-full bg-gradient-to-b from-[#1e5bb8] via-[#3b82f6] to-[#1e5bb8] md:hidden" />
+          <ol className="relative grid grid-cols-1 gap-5 md:grid-cols-6 md:gap-y-10" data-stagger>
             {blueLine.map((station) => (
-              <li key={station.name} className="relative flex flex-col items-center text-center group" data-animate="fade-up">
+              <li key={station.name} className="group relative flex items-center gap-4 md:flex-col md:gap-0 md:text-center" data-animate="fade-up">
                 <span
-                  className={`relative z-10 w-6 h-6 rounded-full border-4 transition-transform duration-300 group-hover:scale-125 ${
-                    station.target ? "bg-[#DCA54A] border-white" : "bg-white border-[#3b82f6]"
+                  className={`relative z-10 h-6 w-6 flex-shrink-0 rounded-full border-4 transition-transform duration-300 group-hover:scale-125 ${
+                    station.target ? "border-white bg-gold-light" : "border-[#3b82f6] bg-white"
                   }`}
                 />
-                <span className="mt-3 text-sm font-semibold">{station.name}</span>
-                {station.target && (
-                  <span className="mt-1 text-[11px] uppercase tracking-wider text-[#DCA54A]">Target {station.target}</span>
-                )}
+                <span className="md:mt-3">
+                  <span className="block text-sm font-semibold">{station.name}</span>
+                  {station.target && (
+                    <span className="mt-0.5 block text-[11px] uppercase tracking-wider text-gold-light">Target {station.target}</span>
+                  )}
+                </span>
               </li>
             ))}
           </ol>
-          </div>
         </div>
-      </section>
+        <Blocks blocks={metro.blocks} className="mt-10 max-w-4xl" />
+      </Section>
 
-      {/* Connectivity Sections */}
-      <section className="w-full bg-gray-50 py-16 px-6">
-        <div className="max-w-5xl mx-auto">
-
-          <h2 className="font-bold text-gray-900 text-2xl md:text-3xl mb-8 text-center" data-animate="fade-up">
-            Connectivity from Nikoo Homes 8
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-6" data-stagger>
-            <div className="card-anim bg-white rounded-lg p-6 border border-gray-200" data-animate="fade-up">
-              <h3 className="font-bold text-gray-900 text-xl mb-3">Road</h3>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-3"><span className="text-[#c8922a] mt-1">•</span><span className="text-gray-600 text-sm">Thanisandra Main Road — direct access from the site frontage belt</span></li>
-                <li className="flex items-start gap-3"><span className="text-[#c8922a] mt-1">•</span><span className="text-gray-600 text-sm">Bhartiya City — 5–7 minutes</span></li>
-                <li className="flex items-start gap-3"><span className="text-[#c8922a] mt-1">•</span><span className="text-gray-600 text-sm">Hebbal junction, the Outer Ring Road and Hennur Road — all bottleneck at rush hour</span></li>
-              </ul>
-            </div>
-            <div className="card-anim bg-white rounded-lg p-6 border border-gray-200" data-animate="fade-up">
-              <h3 className="font-bold text-gray-900 text-xl mb-3">Air</h3>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-3"><span className="text-[#c8922a] mt-1">•</span><span className="text-gray-600 text-sm">Kempegowda International Airport — approx 25 minutes via the airport corridor</span></li>
-                <li className="flex items-start gap-3"><span className="text-[#c8922a] mt-1">•</span><span className="text-gray-600 text-sm">Blue Line metro to the airport via Hebbal, once Phase 2B opens</span></li>
-              </ul>
-            </div>
-            <div className="card-anim bg-white rounded-lg p-6 border border-gray-200" data-animate="fade-up">
-              <h3 className="font-bold text-gray-900 text-xl mb-3">Rail</h3>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-3"><span className="text-[#c8922a] mt-1">•</span><span className="text-gray-600 text-sm">KR Puram Railway Station — approx 11.7 km in a straight line</span></li>
-                <li className="flex items-start gap-3"><span className="text-[#c8922a] mt-1">•</span><span className="text-gray-600 text-sm">Nagawara metro interchange — targeted March 2028</span></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Distance Snapshot Table */}
-      <section className="w-full bg-white py-16 px-6">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="font-bold text-gray-900 text-2xl md:text-3xl mb-6 text-center" data-animate="fade-up">
-            Distance Snapshot — Nikoo Homes 8
-          </h2>
-          <div className="overflow-x-auto" data-animate="fade-up">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border border-gray-300 px-4 py-2 text-left text-gray-700 font-semibold">Destination</th>
-                  <th className="border border-gray-300 px-4 py-2 text-left text-gray-700 font-semibold">Distance</th>
-                  <th className="border border-gray-300 px-4 py-2 text-left text-gray-700 font-semibold">Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {distances.map((item, i) => (
-                  <tr key={i} className={`${i % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-[#FAF3E3] transition-colors`}>
-                    <td className="border border-gray-300 px-4 py-2 text-gray-600 text-sm">{item.destination}</td>
-                    <td className="border border-gray-300 px-4 py-2 text-gray-600 text-sm">{item.distance}</td>
-                    <td className="border border-gray-300 px-4 py-2 text-gray-600 text-sm">{item.note}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="text-xs text-gray-500 mt-3">
-            Distances are approximate and measured from the project gate. Drive times vary materially with traffic.
-          </p>
-        </div>
-      </section>
-
-      {/* Social infrastructure */}
-      <section className="w-full bg-gray-50 py-16 px-6">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
-          {[
-            { title: "Schools", intro: "Chaman Bhartiya School at Bhartiya City is the closest; the wider Thanisandra and Hebbal catchment adds several established names.", items: educationData },
-            { title: "Healthcare", intro: "Major hospitals serving the corridor, with Manipal Hospital the nearest.", items: healthcareData },
-            { title: "Workplaces", intro: "The employment base behind the corridor's rental demand.", items: workspaceData },
-            { title: "Retail & Leisure", intro: "From the mall next door to the city's larger destinations.", items: lifestyleData },
-          ].map((group) => (
-            <div key={group.title} data-animate="fade-up">
-              <h2 className="font-bold text-gray-900 text-2xl md:text-3xl mb-3">
-                {group.title} Near Nikoo Homes 8
-              </h2>
-              <p className="text-gray-600 leading-relaxed mb-4 text-sm">{group.intro}</p>
-              <ul className="grid grid-cols-1 gap-2">
-                {group.items.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <span className="text-[#c8922a] mt-1">•</span>
-                    <span className="text-gray-600 text-sm">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+      <Section id={nearby.id}>
+        <SectionHeading title={nearby.title} eyebrow="Daily life around the address" />
+        <LabelCards
+          items={nearbyCards}
+          icons={[FaSchool, FaHospital, FaBriefcase, FaShoppingBag, FaHotel]}
+          className="mt-8"
+        />
+        <ImageStrip
+          className="mt-8"
+          images={[
+            { image: mall, alt: "Shoppers inside Bhartiya Mall of Bengaluru", caption: "Bhartiya Mall of Bengaluru" },
+            { image: leela, alt: "The Leela Bhartiya City hotel at dusk", caption: "The Leela Bhartiya City" },
+            { image: highStreet, alt: "Evening crowd on the Bhartiya City high street", caption: "Bhartiya City high street" },
+          ]}
+        />
+        <div className="prose-nh mt-8 max-w-3xl">
+          {nearbyClose.map((text) => (
+            <p key={text}>
+              <Md text={text} />
+            </p>
           ))}
         </div>
-      </section>
+      </Section>
 
-      {/* FAQ Section with Schema */}
-      <section className="w-full bg-white py-16 px-6" id="faq">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="font-bold text-gray-900 text-2xl md:text-3xl mb-8 text-center" data-animate="fade-up">
-            Frequently Asked Questions
-          </h2>
-          <FaqAccordion items={faqData} idPrefix="location-faq" />
-          <p className="text-center text-sm text-gray-600 mt-8">
-            Next: <Link href="/bhartiya-city" className="link-anim text-[#c8922a] font-semibold">Bhartiya City — the township next door</Link>
-          </p>
+      <Section id={peakHour.id} tone="sand" narrow>
+        <SectionHeading title={peakHour.title} eyebrow="What a map does not show" />
+        <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50/70 p-5 sm:p-6" data-animate="fade-up">
+          <Blocks blocks={peakHour.blocks} />
         </div>
-      </section>
-      <div className="relative">
-        <StickyDownloadButton />
-      </div>
+      </Section>
 
-      {/* Schema Script */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "FAQPage",
-                "@id": "https://bhartiyanikoohomes8.com/location#faq",
-                "mainEntity": faqData.map(item => ({
-                  "@type": "Question",
-                  "name": item.q,
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": item.a
-                  }
-                }))
-              },
-              {
-                "@type": "BreadcrumbList",
-                "@id": "https://bhartiyanikoohomes8.com/location#breadcrumb",
-                "itemListElement": [
-                  {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Home",
-                    "item": "https://bhartiyanikoohomes8.com/"
-                  },
-                  {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "Location",
-                    "item": "https://bhartiyanikoohomes8.com/location"
-                  }
-                ]
-              },
-              {
-                "@type": "WebPage",
-                "@id": "https://bhartiyanikoohomes8.com/location#webpage",
-                "url": "https://bhartiyanikoohomes8.com/location",
-                "name": "Nikoo Homes 8 Location — Bellahalli, Thanisandra",
-                "description": "Nikoo Homes 8 location at Bellahalli, off Thanisandra Main Road: 5–7 min to Bhartiya City, ~5.6 km to Manyata Tech Park, ~25 min to the airport, and the Blue Line metro timeline.",
-                "breadcrumb": {
-                  "@id": "https://bhartiyanikoohomes8.com/location#breadcrumb"
-                },
-                "about": {
-                  "@id": "https://bhartiyanikoohomes8.com/#project"
-                },
-                "mainEntity": {
-                  "@id": "https://bhartiyanikoohomes8.com/location#faq"
-                },
-                "primaryImageOfPage": "https://bhartiyanikoohomes8.com/nikoo-homes-8-og.webp",
-                "inLanguage": "en-IN"
-              },
-              {
-                "@type": "ApartmentComplex",
-                "@id": "https://bhartiyanikoohomes8.com/#project",
-                "name": "Bhartiya Nikoo Homes 8",
-                "description": "Studio to 4 BHK homes and a limited courtyard villa segment by Bhartiya Urban at Bellahalli, off Thanisandra Main Road, North Bengaluru.",
-                "url": "https://bhartiyanikoohomes8.com/",
-                "image": "https://bhartiyanikoohomes8.com/nikoo-homes-8-og.webp",
-                "address": {
-                  "@type": "PostalAddress",
-                  "streetAddress": "Bellahalli, off Thanisandra Main Road",
-                  "addressLocality": "Bengaluru",
-                  "addressRegion": "Karnataka",
-                  "postalCode": "560064",
-                  "addressCountry": "IN"
-                }
-              },
-              {
-                "@type": "RealEstateAgent",
-                "@id": "https://bhartiyanikoohomes8.com/#organization",
-                "name": "Real Revenue",
-                "url": "https://bhartiyanikoohomes8.com/",
-                "logo": "https://bhartiyanikoohomes8.com/bhartiya-urban-nikoo-homes-logo.webp",
-                "telephone": "+91-6356663535",
-                "email": "vishalajitsaria1988@gmail.com",
-                "areaServed": {
-                  "@type": "City",
-                  "name": "Bengaluru"
-                }
-              }
-            ]
-          })
-        }}
-      />
+      <TextSection section={crossLinks} eyebrow="Keep reading" />
+      <FaqSection title={faqSection.title} items={getFaqs(copy)} idPrefix="location-faq" />
+      <ExploreGrid current="/location" />
+      <ContactBlock section={contact} disclaimer={copy.disclaimer} idPrefix="location-contact" image={heroImage} />
     </>
   );
 }
