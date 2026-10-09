@@ -18,6 +18,7 @@ import Md from "@/components/content/Md";
 import { PriceSheetButton, SiteVisitLink } from "@/components/content/CtaButtons";
 
 import heroImage from "@/assets/black-swan-club.webp";
+import PageStructuredData from "@/components/content/PageStructuredData";
 import aerialView from "@/assets/nikoo-homes-8-aerial-view.webp";
 import clubLounge from "@/assets/black-swan-club-lounge.webp";
 import clubDining from "@/assets/black-swan-club-dining.webp";
@@ -58,6 +59,7 @@ const [clubIntro, clubClose] = paragraphs(club);
 export default function AmenitiesPage() {
   return (
     <>
+      <PageStructuredData copy={copy} type="amenities" image={heroImage} />
       <PageHero
         title={copy.h1}
         eyebrow="Bhartiya Garden Enclave amenities"

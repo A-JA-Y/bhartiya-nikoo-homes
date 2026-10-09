@@ -17,6 +17,7 @@ import Md from "@/components/content/Md";
 import { PriceSheetButton, SiteVisitLink } from "@/components/content/CtaButtons";
 
 import heroImage from "@/assets/bhartiya-city-aerial.webp";
+import PageStructuredData from "@/components/content/PageStructuredData";
 import greenAvenues from "@/assets/bhartiya-city-green-avenues.webp";
 import mall from "@/assets/bhartiya-mall-of-bengaluru.webp";
 import leela from "@/assets/the-leela-bhartiya-city.webp";
@@ -44,6 +45,7 @@ const [buyingIntro, buyingClose] = paragraphs(buying);
 export default function BhartiyaCityPage() {
   return (
     <>
+      <PageStructuredData copy={copy} type="bhartiya-city" image={heroImage} />
       <PageHero
         title={copy.h1}
         eyebrow="Bhartiya City Nikoo Homes"

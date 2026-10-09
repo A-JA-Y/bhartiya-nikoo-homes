@@ -14,6 +14,7 @@ import EmiCalculator from "@/components/EmiCalculator";
 import { BrochureButton, PriceSheetButton } from "@/components/content/CtaButtons";
 
 import heroImage from "@/assets/nikoo-homes-8-hero.webp";
+import PageStructuredData from "@/components/content/PageStructuredData";
 import towers from "@/assets/nikoo-homes-8-towers.webp";
 import interior2Bhk from "@/assets/interior-2-bhk.webp";
 import greenAvenues from "@/assets/bhartiya-city-green-avenues.webp";
@@ -47,6 +48,7 @@ const steps = [
 export default function PricePage() {
   return (
     <>
+      <PageStructuredData copy={copy} type="price" image={heroImage} />
       <PageHero
         title={copy.h1}
         eyebrow="Price list 2026"

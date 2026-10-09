@@ -16,6 +16,7 @@ import Md from "@/components/content/Md";
 import { PriceSheetButton, SiteVisitLink } from "@/components/content/CtaButtons";
 
 import heroImage from "@/assets/nikoo-homes-8-aerial-view.webp";
+import PageStructuredData from "@/components/content/PageStructuredData";
 import gardenEnclave from "@/assets/garden-enclave-illustration.webp";
 import towers from "@/assets/nikoo-homes-8-towers.webp";
 import bhartiyaCity from "@/assets/bhartiya-city-aerial.webp";
@@ -58,6 +59,7 @@ const [worksLabel, weighLabel] = blocksOfType(review.blocks, "label");
 export default function AboutNikooHomes8Page() {
   return (
     <>
+      <PageStructuredData copy={copy} type="about" image={heroImage} />
       <PageHero
         title={copy.h1}
         eyebrow="Bhartiya Garden Enclave · Review"

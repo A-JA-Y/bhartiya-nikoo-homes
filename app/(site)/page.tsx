@@ -2,8 +2,8 @@ import Image from "next/image";
 import { FaSwimmingPool, FaTableTennis, FaLeaf, FaShieldAlt } from "react-icons/fa";
 import copy from "@/content/pages/home";
 import { getFaqs, getFaqSection, getSection, paragraphs } from "@/lib/copy";
-import { absoluteUrl, pageMetadata } from "@/lib/seo";
-import { MAP_EMBED_URL, MAP_LINK_URL, SITE_URL } from "@/data/projectData";
+import { pageMetadata } from "@/lib/seo";
+import { MAP_EMBED_URL, MAP_LINK_URL } from "@/data/projectData";
 
 import Hero from "@/components/Hero";
 import ReraStrip from "@/components/QRsectionsm";
@@ -22,8 +22,8 @@ import ImageStrip from "@/components/content/ImageStrip";
 import FaqSection from "@/components/content/FaqSection";
 import ContactBlock from "@/components/content/ContactBlock";
 import ReraCard from "@/components/content/ReraCard";
-import JsonLd from "@/components/content/JsonLd";
-import Md, { plainText } from "@/components/content/Md";
+import PageStructuredData from "@/components/content/PageStructuredData";
+import Md from "@/components/content/Md";
 
 import aerialView from "@/assets/nikoo-homes-8-aerial-view.webp";
 import centralSpine from "@/assets/central-spine-walkway.webp";
@@ -85,79 +85,10 @@ const plans = [
   { image: plan4Bhk, label: "4 BHK + Staff · 2,506 sq ft", alt: "Nikoo Homes 8 4 BHK with staff room floor plan, 2,506 sq ft" },
 ];
 
-const SITE = `${SITE_URL}/`;
-const schemaGraph = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": `${SITE}#webpage`,
-      url: SITE,
-      name: copy.meta.title,
-      description: copy.meta.description,
-      about: { "@id": `${SITE}#project` },
-      inLanguage: "en-IN",
-    },
-    {
-      "@type": "ApartmentComplex",
-      "@id": `${SITE}#project`,
-      name: "Bhartiya Nikoo Homes 8",
-      alternateName: ["Nikoo Homes 8", "Bhartiya Garden Enclave"],
-      url: SITE,
-      image: `${SITE}nikoo-homes-8-og.webp`,
-      description: plainText(introText),
-      numberOfAccommodationUnits: 1010,
-      petsAllowed: true,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Bellahalli, off Thanisandra Main Road",
-        addressLocality: "Bengaluru",
-        addressRegion: "Karnataka",
-        postalCode: "560064",
-        addressCountry: "IN",
-      },
-      amenityFeature: [
-        "40,000 sq ft Black Swan Club",
-        "Rooftop Swimming Pool",
-        "Car-Free Central Spine",
-        "Gymnasium",
-        "Tennis Court",
-        "Squash Court",
-        "Rock Climbing Wall",
-        "Mini Theatre",
-        "Co-working Spaces",
-        "Pet Zone",
-      ].map((name) => ({ "@type": "LocationFeatureSpecification", name, value: true })),
-    },
-    {
-      "@type": "Product",
-      name: "Nikoo Homes 8 Studio Apartment",
-      description: "Studio apartment of 501 sq ft saleable area at Bhartiya Nikoo Homes 8, Bellahalli, North Bengaluru.",
-      brand: { "@type": "Brand", name: "Bhartiya Urban" },
-      offers: { "@type": "Offer", price: "6700000", priceCurrency: "INR", availability: "https://schema.org/InStock", url: absoluteUrl("/price") },
-    },
-    {
-      "@type": "Product",
-      name: "Nikoo Homes 8 3 BHK Apartment",
-      description: "3 BHK apartment of 1,730 sq ft saleable area at Bhartiya Nikoo Homes 8, Bellahalli, North Bengaluru.",
-      brand: { "@type": "Brand", name: "Bhartiya Urban" },
-      offers: { "@type": "Offer", price: "20400000", priceCurrency: "INR", availability: "https://schema.org/InStock", url: absoluteUrl("/price") },
-    },
-    {
-      "@type": "RealEstateAgent",
-      name: "Real Revenue",
-      url: SITE,
-      areaServed: "Bengaluru",
-      telephone: "+91-6356663535",
-      parentOrganization: { "@type": "Organization", name: "Earlydays Innovations Private Limited" },
-    },
-  ],
-};
-
 export default function Home() {
   return (
     <div className="w-full">
-      <JsonLd data={schemaGraph} />
+      <PageStructuredData copy={copy} type="home" image={aerialView} />
 
       <Hero
         title={copy.h1}

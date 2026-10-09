@@ -18,6 +18,7 @@ import { GatedPlanGrid } from "@/components/GatedPlans";
 import { BrochureButton, SiteVisitLink } from "@/components/content/CtaButtons";
 
 import heroImage from "@/assets/interior-1-bhk-study.webp";
+import PageStructuredData from "@/components/content/PageStructuredData";
 import brochureCover from "@/assets/nikoo-homes-8-brochure-cover.webp";
 import villaIllustration from "@/assets/courtyard-villa-illustration.webp";
 import greenAvenues from "@/assets/bhartiya-city-green-avenues.webp";
@@ -76,6 +77,7 @@ const howItems = blocksOfType(howToRead.blocks, "ul")[0]?.items ?? [];
 export default function FloorPlanPage() {
   return (
     <>
+      <PageStructuredData copy={copy} type="floor-plan" image={heroImage} />
       <PageHero
         title={copy.h1}
         eyebrow="Bhartiya Garden Enclave floor plans"

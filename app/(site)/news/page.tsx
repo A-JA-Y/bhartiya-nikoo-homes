@@ -15,6 +15,7 @@ import ExploreGrid from "@/components/content/ExploreGrid";
 import { PriceSheetButton, SiteVisitLink } from "@/components/content/CtaButtons";
 
 import heroImage from "@/assets/nikoo-homes-8-towers.webp";
+import PageStructuredData from "@/components/content/PageStructuredData";
 
 const HERO_ALT = "Nikoo Homes 8 towers rising above the gardens at Bellahalli";
 
@@ -52,6 +53,7 @@ const updates = [...NewsData]
 export default function NewsPage() {
   return (
     <>
+      <PageStructuredData copy={copy} type="news" image={heroImage} />
       <PageHero
         title={copy.h1}
         eyebrow="Status board · Updated 8 October 2026"

@@ -1,9 +1,3 @@
-# *
 User-agent: *
-Allow: /
-
-# Host
-Host: https://bhartiyanikoohomes8.com
-
-# Sitemaps
+Disallow: /cgi-bin/
 Sitemap: https://bhartiyanikoohomes8.com/sitemap.xml

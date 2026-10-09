@@ -17,6 +17,7 @@ import Md from "@/components/content/Md";
 import { CallLink, WhatsAppLink } from "@/components/content/CtaButtons";
 
 import heroImage from "@/assets/black-swan-club-lounge.webp";
+import PageStructuredData from "@/components/content/PageStructuredData";
 import centralSpine from "@/assets/central-spine-walkway.webp";
 
 const HERO_ALT = "Lounge inside the Black Swan Club at Nikoo Homes 8";
@@ -40,6 +41,7 @@ const reachItems = (blocksOfType(reach.blocks, "ul")[0]?.items ?? []).map((item)
 export default function ContactUsPage() {
   return (
     <>
+      <PageStructuredData copy={copy} type="contact" image={heroImage} />
       <PageHero
         title={copy.h1}
         eyebrow="Call or WhatsApp · Seven days a week"

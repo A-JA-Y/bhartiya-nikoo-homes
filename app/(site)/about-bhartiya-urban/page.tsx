@@ -14,6 +14,7 @@ import { PriceSheetButton } from "@/components/content/CtaButtons";
 import { buttonStyles } from "@/components/content/buttonStyles";
 
 import heroImage from "@/assets/the-leela-bhartiya-city.webp";
+import PageStructuredData from "@/components/content/PageStructuredData";
 import logo from "@/assets/bhartiya-urban-nikoo-homes-logo.webp";
 import cityAerial from "@/assets/bhartiya-city-aerial.webp";
 import mall from "@/assets/bhartiya-mall-of-bengaluru.webp";
@@ -22,6 +23,17 @@ import greenAvenues from "@/assets/bhartiya-city-green-avenues.webp";
 import nh8Hero from "@/assets/nikoo-homes-8-hero.webp";
 
 const HERO_ALT = "The Leela Bhartiya City at dusk, built and operated by the Bhartiya Group";
+const structuredDataCopy = {
+  meta: {
+    title: "Bhartiya Urban — Developer Profile | Nikoo Homes 8",
+    description:
+      "Bhartiya Urban, the real estate arm of the Bhartiya Group, built and still operates Bhartiya City. Nikoo Homes 1 to 5 are delivered, with 6,600+ families in residence.",
+    path: "/about-bhartiya-urban",
+  },
+  h1: "Bhartiya Urban — Developer Profile",
+  sections: [],
+  disclaimer: null,
+};
 
 export const metadata = pageMetadata({
   title: "Bhartiya Urban — Developer Profile | Nikoo Homes 8",
@@ -54,6 +66,7 @@ const contact = getSection(homeCopy, "contact-us");
 export default function AboutBhartiyaUrbanPage() {
   return (
     <>
+      <PageStructuredData copy={structuredDataCopy} type="developer" image={heroImage} />
       <PageHero
         title="Bhartiya Urban — Developer Profile"
         eyebrow="The developer · Since 1987"

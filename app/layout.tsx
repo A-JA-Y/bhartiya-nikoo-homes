@@ -5,6 +5,8 @@ import Script from "next/script";
 import "lite-youtube-embed/src/lite-yt-embed.css";
 import { Analytics } from '@vercel/analytics/next';
 import ScrollAnimator from "@/components/ScrollAnimator";
+import JsonLd from "@/components/content/JsonLd";
+import { sitewideSchema } from "@/lib/structuredData";
 
 
 
@@ -125,6 +127,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </Script>
 
       <body className="min-h-full flex flex-col overflow-x-hidden">
+        <JsonLd data={sitewideSchema} />
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-PGFWQ73S"

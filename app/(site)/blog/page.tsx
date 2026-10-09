@@ -15,6 +15,7 @@ import { DestinationCards } from "@/components/content/ExploreGrid";
 import Md from "@/components/content/Md";
 
 import heroImage from "@/assets/interior-studio.webp";
+import PageStructuredData from "@/components/content/PageStructuredData";
 
 const HERO_ALT = "Study desk by a window in a Nikoo Homes 8 studio apartment render";
 
@@ -53,6 +54,7 @@ const articles = [...blogData]
 export default function BlogPage() {
   return (
     <>
+      <PageStructuredData copy={copy} type="blog" image={heroImage} />
       <PageHero
         title={copy.h1}
         eyebrow="Real Revenue · Buyer guides"

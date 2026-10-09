@@ -3,7 +3,7 @@
 module.exports = {
   siteUrl: "https://bhartiyanikoohomes8.com",
   exclude: ["/thank-you"],
-  generateRobotsTxt: true,
+  generateRobotsTxt: false,
   generateIndexSitemap: false,
 
 

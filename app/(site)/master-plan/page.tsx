@@ -21,6 +21,7 @@ import { buttonStyles } from "@/components/content/buttonStyles";
 import { PriceSheetButton } from "@/components/content/CtaButtons";
 
 import heroImage from "@/assets/circle-of-life-lawn.webp";
+import PageStructuredData from "@/components/content/PageStructuredData";
 import masterPlan from "@/assets/nikoo-homes-8-master-plan.webp";
 import aerialView from "@/assets/nikoo-homes-8-aerial-view.webp";
 import centralSpine from "@/assets/central-spine-walkway.webp";
@@ -55,6 +56,7 @@ const [zonesIntro, zonesClose] = paragraphs(zones);
 export default function MasterPlanPage() {
   return (
     <>
+      <PageStructuredData copy={copy} type="master-plan" image={heroImage} />
       <PageHero
         title={copy.h1}
         eyebrow="Bhartiya Garden Enclave master plan"

@@ -19,6 +19,7 @@ import { buttonStyles } from "@/components/content/buttonStyles";
 import { SiteVisitLink } from "@/components/content/CtaButtons";
 
 import heroImage from "@/assets/bhartiya-city-green-avenues.webp";
+import PageStructuredData from "@/components/content/PageStructuredData";
 import bhartiyaCity from "@/assets/bhartiya-city-aerial.webp";
 import interiorStudio from "@/assets/interior-studio.webp";
 import towers from "@/assets/nikoo-homes-8-towers.webp";
@@ -61,6 +62,7 @@ const blueLine = [
 export default function LocationPage() {
   return (
     <>
+      <PageStructuredData copy={copy} type="location" image={heroImage} />
       <PageHero
         title={copy.h1}
         eyebrow="Bellahalli · Thanisandra · North Bangalore"

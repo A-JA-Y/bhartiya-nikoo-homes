@@ -15,6 +15,7 @@ import ExploreGrid from "@/components/content/ExploreGrid";
 import { BrochureButton, PriceSheetButton } from "@/components/content/CtaButtons";
 
 import heroImage from "@/assets/interior-bedroom.webp";
+import PageStructuredData from "@/components/content/PageStructuredData";
 import interiorStudio from "@/assets/interior-studio.webp";
 import interior1Bhk from "@/assets/interior-1-bhk.webp";
 import interior2Bhk from "@/assets/interior-2-bhk.webp";
@@ -52,6 +53,7 @@ const types: { id: string; nav: string; image: StaticImageData; alt: string; cap
 export default function ConfigurationsPage() {
   return (
     <>
+      <PageStructuredData copy={copy} type="configurations" image={heroImage} />
       <PageHero
         title={copy.h1}
         eyebrow="Villa & configuration"
