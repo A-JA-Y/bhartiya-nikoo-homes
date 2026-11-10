@@ -14,6 +14,7 @@ import developerThumb from "@/assets/thumbs/the-leela.webp";
 import newsThumb from "@/assets/thumbs/hero.webp";
 import blogThumb from "@/assets/thumbs/central-spine.webp";
 import contactThumb from "@/assets/thumbs/club-lounge.webp";
+import bestProjectsThumb from "@/assets/thumbs/high-street.webp";
 
 type Destination = { href: string; title: string; blurb: string; image: StaticImageData; alt: string };
 
@@ -27,12 +28,13 @@ export const destinations: Destination[] = [
   { href: "/bhartiya-city", title: "Bhartiya City", blurb: "The 125-acre township next door and the Nikoo Homes phases inside it.", image: bhartiyaCityThumb, alt: "Aerial view of Bhartiya City and its central park" },
   { href: "/about-nikoo-homes-8", title: "About Nikoo Homes 8", blurb: "Bhartiya Garden Enclave: the phase history, what works and what to weigh.", image: aboutThumb, alt: "Aerial view of the Black Swan Club and gardens at Nikoo Homes 8" },
   { href: "/about-bhartiya-urban", title: "About Bhartiya Urban", blurb: "The developer that built Bhartiya City and still runs it.", image: developerThumb, alt: "The Leela Bhartiya City at dusk" },
+  { href: "/best-residential-projects-in-bangalore-2026", title: "Best Projects in Bangalore", blurb: "The top 5 for 2026 compared on price, RERA and possession, from ₹67 lakh to ₹17 crore.", image: bestProjectsThumb, alt: "Evening crowd on the Bhartiya City high street in North Bengaluru" },
   { href: "/news", title: "News", blurb: "Dated status board: RERA, possession date, prices and the metro.", image: newsThumb, alt: "Nikoo Homes 8 towers and the Central Spine at dusk" },
   { href: "/blog", title: "Blog", blurb: "Buyer guides, rental yield and North Bangalore comparisons.", image: blogThumb, alt: "Tree-lined Central Spine walkway at Nikoo Homes 8" },
   { href: "/contact-us", title: "Contact Us", blurb: "Site visits seven days a week, the brochure and the live cost sheet.", image: contactThumb, alt: "Lounge inside the Black Swan Club" },
 ];
 
-const CORE = ["/configurations", "/price", "/floor-plan", "/master-plan", "/amenities", "/location", "/bhartiya-city", "/about-nikoo-homes-8"];
+const CORE = ["/configurations", "/price", "/floor-plan", "/master-plan", "/amenities", "/location", "/bhartiya-city", "/about-nikoo-homes-8", "/best-residential-projects-in-bangalore-2026"];
 
 // Image cards linking to section pages: a swipeable rail on phones, a grid
 // from md up.

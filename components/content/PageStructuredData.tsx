@@ -7,10 +7,13 @@ export default function PageStructuredData({
   copy,
   type,
   image,
+  extra,
 }: {
   copy: PageCopy;
   type: Parameters<typeof pageSchema>[1];
   image?: StaticImageData;
+  // Merged into the page node, for dates on a dated guide.
+  extra?: Record<string, unknown>;
 }) {
-  return <JsonLd data={pageSchema(copy, type, image?.src)} />;
+  return <JsonLd data={pageSchema(copy, type, image?.src, extra)} />;
 }

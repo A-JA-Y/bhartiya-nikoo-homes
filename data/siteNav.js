@@ -14,4 +14,10 @@ export const siteNavLinks = [
   { label: "Contact Us", href: "/contact-us" },
 ];
 
-export const footerNavLinks = siteNavLinks;
+// Guide pages that are not about Nikoo Homes 8 itself: linked sitewide from the
+// footer and from the Explore band, but kept out of the header's project nav.
+export const guideNavLinks = [
+  { label: "Best Projects in Bangalore", href: "/best-residential-projects-in-bangalore-2026" },
+];
+
+export const footerNavLinks = [...siteNavLinks, ...guideNavLinks];

@@ -367,7 +367,7 @@ const copy: PageCopy = {
       "blocks": [
         {
           "type": "p",
-          "text": "Indicative prices above exclude GST at 5%, stamp duty and registration at about 7.6%, floor rise of ₹2 to 6 lakh and deposits of ₹3 to 5 lakh; the unit-wise price list, cost sheet and payment plan are on the [price](/price) page. Drawings for all nine types are on the [floor plan](/floor-plan) page. Where each tower and the villa pathway sit on the 11.35 acres is on the [master plan](/master-plan) page. The Black Swan Club and the gardens every configuration shares are on the [amenities](/amenities) page, and distances to Manyata, the township and the metro are on the [location](/location) page."
+          "text": "Indicative prices above exclude GST at 5%, stamp duty and registration at about 7.6%, floor rise of ₹2 to 6 lakh and deposits of ₹3 to 5 lakh; the unit-wise price list, cost sheet and payment plan are on the [price](/price) page. Drawings for all nine types are on the [floor plan](/floor-plan) page. Where each tower and the villa pathway sit on the 11.35 acres is on the [master plan](/master-plan) page. The Black Swan Club and the gardens every configuration shares are on the [amenities](/amenities) page, and distances to Manyata, the township and the metro are on the [location](/location) page. If you are weighing the courtyard villas against others in the city, the [best residential projects in Bangalore](/best-residential-projects-in-bangalore-2026) page covers the 2026 villa options from ₹5.40 crore up."
         }
       ]
     },

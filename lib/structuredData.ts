@@ -116,6 +116,7 @@ export const sitewideSchema = {
         ["About Bhartiya Urban", "/about-bhartiya-urban"],
         ["Blogs", "/blog"],
         ["News", "/news"],
+        ["Best Projects in Bangalore", "/best-residential-projects-in-bangalore-2026"],
         ["Contact Us", "/contact-us"],
       ].map(([name, path], index) => ({
         "@type": "SiteNavigationElement",
@@ -140,13 +141,30 @@ type PageSchemaType =
   | "contact"
   | "home"
   | "blog"
-  | "news";
+  | "news"
+  | "guide";
 
-export function pageSchema(copy: PageCopy, type: PageSchemaType, imageUrl?: string) {
+// The five projects compared on /best-residential-projects-in-bangalore-2026, in
+// the order the page ranks them. Prices are the indicative base figures in rupees.
+const bangaloreTopProjects: { name: string; street: string; kind: string; price: number; self?: boolean }[] = [
+  { name: "Bhartiya Nikoo Homes 8", street: "Bellahalli, off Thanisandra Main Road", kind: "ApartmentComplex", price: 6700000, self: true },
+  { name: "Century Blue Moon", street: "Jakkur, International Airport Road", kind: "ApartmentComplex", price: 42500000 },
+  { name: "Embassy Riverine", street: "Tharahunise", kind: "SingleFamilyResidence", price: 141000000 },
+  { name: "Godrej Florenne", street: "Off Soukya Road, Whitefield", kind: "SingleFamilyResidence", price: 54000000 },
+  { name: "Purva Orient Grand", street: "Lal Bagh Main Road, Sudhama Nagar", kind: "ApartmentComplex", price: 90000000 },
+];
+
+export function pageSchema(
+  copy: PageCopy,
+  type: PageSchemaType,
+  imageUrl?: string,
+  // Merged into the page node: dates for a dated guide, for example.
+  extra?: Record<string, unknown>
+) {
   const path = copy.meta.path === "/" ? "/" : copy.meta.path;
   const url = `${SITE_URL}${path}`;
   const faqs = getFaqs(copy);
-  const pageType = type === "about" || type === "developer" ? "AboutPage" : type === "blog" || type === "news" || type === "configurations" ? "CollectionPage" : type === "contact" ? "ContactPage" : "WebPage";
+  const pageType = type === "about" || type === "developer" ? "AboutPage" : type === "blog" || type === "news" || type === "configurations" || type === "guide" ? "CollectionPage" : type === "contact" ? "ContactPage" : "WebPage";
   const entityByType: Record<string, Record<string, unknown>> = {
     configurations: {
       "@type": "ItemList",
@@ -196,6 +214,37 @@ export function pageSchema(copy: PageCopy, type: PageSchemaType, imageUrl?: stri
       contentUrl: imageUrl,
       caption: "Nikoo Homes 8 landscape master plan showing Towers A to F, the Central Spine and the Black Swan Club",
     },
+    guide: {
+      "@type": "ItemList",
+      "@id": `${url}#top-projects`,
+      name: "Best residential projects in Bangalore 2026",
+      description:
+        "Five residential projects in Bengaluru compared on developer delivery record, RERA registration and filed completion date, land and open space per home, location and base price.",
+      numberOfItems: bangaloreTopProjects.length,
+      itemListElement: bangaloreTopProjects.map((entry, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: entry.name,
+        item: {
+          "@type": entry.kind,
+          ...(entry.self ? { "@id": `${SITE_URL}/#project` } : {}),
+          name: entry.name,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: entry.street,
+            addressLocality: "Bengaluru",
+            addressRegion: "Karnataka",
+            addressCountry: "IN",
+          },
+          offers: {
+            "@type": "Offer",
+            price: entry.price,
+            priceCurrency: "INR",
+            availability: "https://schema.org/PreOrder",
+          },
+        },
+      })),
+    },
     "bhartiya-city": {
       "@type": "Place",
       "@id": `${url}#bhartiya-city`,
@@ -218,6 +267,7 @@ export function pageSchema(copy: PageCopy, type: PageSchemaType, imageUrl?: stri
       breadcrumb: { "@id": `${url}#breadcrumb` },
       about: { "@id": `${SITE_URL}/#project` },
       ...(entityByType[type] ? { mainEntity: { "@id": entityByType[type]["@id"] } } : {}),
+      ...extra,
     },
     {
       "@type": "BreadcrumbList",

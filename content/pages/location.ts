@@ -138,7 +138,7 @@ const copy: PageCopy = {
         },
         {
           "type": "p",
-          "text": "Among new projects in North Bangalore and new launch projects in North Bangalore this year, few sit this close to a working township. For flats in North Bangalore from ₹67 lakh, or luxury apartments in North Bangalore under ₹3 crore with a 40,000 sq ft club and a car-free spine, it is a short list; the [price](/price) page has the full working."
+          "text": "Among new projects in North Bangalore and [new launch projects in North Bangalore](/best-residential-projects-in-bangalore-2026) this year, few sit this close to a working township. For flats in North Bangalore from ₹67 lakh, or luxury apartments in North Bangalore under ₹3 crore with a 40,000 sq ft club and a car-free spine, it is a short list; the [price](/price) page has the full working."
         }
       ]
     },

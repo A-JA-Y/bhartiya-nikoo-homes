@@ -453,7 +453,7 @@ const copy: PageCopy = {
           "type": "ul",
           "items": [
             "Build-to-own developer: the mall, hotel, office park and school at Bhartiya City are retained and run by the builder, so it has a direct stake in the neighbourhood still being good in 2035.",
-            "₹12,000 per sq ft at launch is competitive against other new launch projects in North Bangalore on this corridor, and against most new launch projects in Bangalore from a developer with a comparable delivery record.",
+            "₹12,000 per sq ft at launch is competitive against other new launch projects in North Bangalore on this corridor, and against most [new launch projects in Bangalore](/best-residential-projects-in-bangalore-2026) from a developer with a comparable delivery record.",
             "Studio and 1 BHK stock at ₹67 to 93 lakh is a rental play on the Manyata tenant base. For 3 BHK flats in North Bangalore under ₹2.5 crore, or luxury apartments in North Bangalore with a staff room under ₹3 crore, the shortlist is short.",
             "75% open space and a car-free spine across 1,010 homes is unusual for gated community apartments in Bangalore at this density.",
             "The Blue Line metro lands in 2027 to 2028, inside the construction window."

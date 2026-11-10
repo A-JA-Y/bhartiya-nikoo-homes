@@ -45,7 +45,7 @@ const copy: PageCopy = {
             "**Buyer guides.** How to compare projects on the same corridor, how to read a cost sheet, what carpet area really buys you, and which configuration fits which household.",
             "**Investment notes.** Rental yield by unit type, launch versus resale, and the honest case for and against buying for a 2030 possession.",
             "**Location guides.** Thanisandra, Hebbal, Hennur Road, Jakkur, Yelahanka and the airport belt, compared on commute, schools and what is being built.",
-            "**Comparisons.** Nikoo Homes 8 against other new launch projects in Bangalore and against the earlier Nikoo Homes phases, with the trade-offs stated plainly."
+            "**Comparisons.** Nikoo Homes 8 against [other new launch projects in Bangalore](/best-residential-projects-in-bangalore-2026) and against the earlier Nikoo Homes phases, with the trade-offs stated plainly."
           ]
         },
         {
