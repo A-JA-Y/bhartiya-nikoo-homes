@@ -55,10 +55,6 @@ export const metadata: Metadata = {
     canonical: "https://bhartiyanikoohomes8.com/",
   },
 
-  icons: {
-    icon: "/favicon.ico",
-  },
-
   openGraph: {
     title: "Bhartiya Nikoo Homes 8 | 1,010 Homes at Bellahalli, North Bangalore",
     description:
@@ -87,6 +83,8 @@ export const metadata: Metadata = {
 };
 
 import { ModalProvider } from "@/components/ModalContext";
+import FloatingCall from "@/components/FloatingcallButton";
+import FloatingWhatsapp from "@/components/FloatingWhatsapp";
 
 export default function RootLayout({
   children,
@@ -139,6 +137,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <ModalProvider>
           {children}
         </ModalProvider>
+        <FloatingCall />
+        <FloatingWhatsapp />
         <ScrollAnimator />
       </body>
     </html>
