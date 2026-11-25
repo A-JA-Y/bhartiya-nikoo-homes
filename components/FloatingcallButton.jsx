@@ -8,7 +8,8 @@ export default function FloatingCall() {
       aria-label={`Call us at ${CONTACT.phoneDisplay}`}
       title={`Call ${CONTACT.phoneDisplay}`}
       className="
-        fixed bottom-30 right-6 z-[1000]
+        floating-contact
+        fixed bottom-30 right-6 z-30
         hidden md:flex items-center justify-center
         w-12 h-12
         rounded-full

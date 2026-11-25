@@ -10,7 +10,8 @@ const MESSAGE =
 
 // Phone-only bar pinned to the bottom of the screen. It replaces the floating
 // call, WhatsApp and brochure buttons below md, which otherwise sit on top of
-// the copy on a narrow screen.
+// the copy on a narrow screen. Its data-mobile-action-bar marker keeps the
+// floating pair hidden on phones wherever the bar is rendered (globals.css).
 export default function MobileActionBar() {
   const { openModal } = useModal();
   const unlocked = useLeadUnlocked();
@@ -21,6 +22,7 @@ export default function MobileActionBar() {
   return (
     <nav
       aria-label="Quick contact"
+      data-mobile-action-bar
       className="fixed inset-x-0 bottom-0 z-[35] border-t border-black/10 bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-6px_20px_-12px_rgba(20,16,4,0.45)] backdrop-blur md:hidden"
     >
       <div className="grid grid-cols-3">

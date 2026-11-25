@@ -13,7 +13,8 @@ export default function FloatingWhatsapp() {
       aria-label={`Chat with us on WhatsApp at ${CONTACT.phoneDisplay}`}
       title={CONTACT.phoneDisplay}
       className="
-        fixed bottom-6 right-3 z-[1000]
+        floating-contact
+        fixed bottom-6 right-3 z-30
         hidden md:flex items-center justify-center
         w-16 h-16
         rounded-full bg-[#25D366] text-white
