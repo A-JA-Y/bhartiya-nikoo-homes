@@ -1,0 +1,31 @@
+/**
+ * Cloudflare Workers config for Bhartiya Nikoo Homes 8 (bhartiyanikoohomes8.com).
+ *
+ * The site is a fully static Next.js export (output: "export" in next.config.ts),
+ * so Cloudflare serves the ./out folder as Workers Static Assets. There is no
+ * Worker script.
+ *
+ * public/_headers (a year-long cache for hashed build files) is copied into ./out
+ * by `next build`, and Cloudflare applies it.
+ *
+ * Deploying from the Cloudflare dashboard (Workers & Pages > Create > Import a repository):
+ *   Build command:   npm run build
+ *   Deploy command:  npx wrangler deploy
+ *
+ * From a terminal:
+ *   npm run build && npx wrangler dev      preview on http://localhost:8787
+ *   npm run build && npx wrangler deploy   deploy (after `npx wrangler login`)
+ */
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bhartiya-nikoo-homes",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    // Folder that `next build` writes the static export to.
+    "directory": "./out",
+    // /about serves about.html; /about/ and /about.html redirect to /about.
+    "html_handling": "auto-trailing-slash",
+    // Unknown URLs get the site's own 404 page (out/404.html) with a 404 status.
+    "not_found_handling": "404-page"
+  }
+}
